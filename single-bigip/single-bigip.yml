@@ -1,0 +1,164 @@
+- name: Setup single big-ip
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  environment:
+    F5_USER: "admin"
+    F5_PASSWORD: "admin"
+    F5_VALIDATE_CERTS: "no"
+ 
+
+  tasks:
+  - name: Get facts from XLSX file
+    xls_to_facts:
+      src: ./single-bigip.xlsx
+
+  - name: set mgmt IP variable
+    set_fact: 
+      mgmt_ip: "{{ item.mgmt }}" 
+    with_items: "{{ spreadsheet_mgmt }}"
+
+  - debug:
+      msg: Server mgmt IP is {{ mgmt_ip }}
+
+  - name: set hostname
+    bigip_hostname:
+      server: "{{ mgmt_ip }}"
+      hostname: "{{ item.hostname }}"
+    with_items: "{{ spreadsheet_mgmt }}"
+
+  - name: set dns 
+    bigip_device_dns:
+      server: "{{ mgmt_ip }}"
+      name_servers: 
+        - "{{ item.dns1 }}"
+        - "{{ item.dns2 }}"
+    with_items: 
+      - "{{ spreadsheet_system_settings}}"
+
+  - name: set ntp on {{ mgmt_ip }}
+    bigip_device_ntp:
+      server: "{{ mgmt_ip }}"
+      ntp_servers:
+        - "{{ item.ntp1 }}"
+        - "{{ item.ntp2 }}"
+        - "{{ item.ntp3 }}"
+    with_items: 
+      - "{{ spreadsheet_system_settings}}"
+
+  - name: Add a remote syslog server
+    bigip_remote_syslog:
+      server: "{{ mgmt_ip }}"
+      remote_host: "{{ item.syslog}}"
+    with_items: "{{ spreadsheet_system_settings}}"
+
+  - name: Set VLANS
+    bigip_vlan:
+      server: "{{ mgmt_ip }}"
+      name: "{{ item.vlan_name }}"
+      tag: "{{ item.vlan_id }}"
+    with_items: "{{ spreadsheet_vlans}}"
+
+  - name: Set untagged interfaces
+    bigip_vlan:
+      server: "{{ mgmt_ip }}"
+      untagged_interface: "{{ item.untagged_interface }}"
+      name: "{{ item.vlan_name }}"
+    with_items: "{{ spreadsheet_vlans}}"
+    when: item.untagged_interface != ''
+    ignore_errors: yes
+
+  - name: Set tagged interfaces
+    bigip_vlan:
+      server: "{{ mgmt_ip }}"
+      tagged_interface: "{{ item.tagged_interface }}"
+      name: "{{ item.vlan_name }}"
+    with_nested: "{{ spreadsheet_vlans}}"
+    when: item.tagged_interface != '' 
+    ignore_errors: yes  
+
+  - name: Set non-floating self IPs
+    bigip_selfip:
+      server: "{{ mgmt_ip}}"
+      name: "{{ item.ip_address }}"
+      address: "{{ item.ip_address }}"
+      netmask: "{{ item.netmask }}"
+      vlan: "{{ item.vlan }}"
+      state: "present"
+    with_items: "{{ spreadsheet_self_ips }}"
+     
+  - name: disable BIG-IP setup utility
+    bigip_command:
+      server: "{{ mgmt_ip }}"
+      commands: 
+        - modify /sys global-settings gui-setup disabled
+        - save sys config
+  
+  - name: Create pools
+    bigip_pool:
+      server: "{{ mgmt_ip }}"
+      name: "{{ item.pool_name }}"
+      lb_method: "{{ item.lb_method }}"
+      slow_ramp_time: "120"
+      monitor_type: "{{ item.monitor_type }}"
+      monitors: "{{ item.monitors }}"
+      state: "{{ item.state }}"
+    with_items: "{{ spreadsheet_pools }}"
+
+  - name: Add nodes to pools
+    bigip_pool_member:
+      server: "{{ mgmt_ip }}"
+      pool: "{{ item.pool_name }}"
+      host: "{{ item.pool_member }}"
+      port: "{{ item.pool_port }}"
+      state: "{{ item.state }}"
+    with_items: "{{ spreadsheet_pool_members }}"
+
+  - name: Add Standard virtual servers
+    bigip_virtual_server:
+      server: "{{ mgmt_ip }}"
+      name: "{{ item.vs_name }}"
+      destination: "{{ item.vs_ip }}"
+      port: "{{ item.vs_port }}"
+      profiles: tcp
+      pool: "{{ item.pool_name }}"
+      state: "{{ item.state }}"
+    with_items: "{{ spreadsheet_virtual_servers }}"
+
+  - name: Add Automap SNAT
+    bigip_virtual_server:
+      server: "{{ mgmt_ip }}"
+      name: "{{ item.vs_name }}"
+      snat: Automap
+    with_items: "{{ spreadsheet_virtual_servers }}"
+    when: item.automap == 'yes'
+
+  - name: Add HTTP profiles
+    bigip_command:
+      server: "{{ mgmt_ip }}"
+      commands: modify ltm virtual {{ item.vs_name }} profiles add { {{ item.http_profile }} }
+    with_items: "{{ spreadsheet_virtual_servers }}"
+    when: item.http_profile != ''
+
+  - name: Add clientssl profiles
+    bigip_command:
+      server: "{{ mgmt_ip }}"
+      commands: modify ltm virtual {{ item.vs_name }} profiles add { {{ item.clientssl_profile }} }
+    with_items: "{{ spreadsheet_virtual_servers }}"
+    when: item.clientssl_profile != '' 
+
+  - name: Add serverssl profiles
+    bigip_command:
+      server: "{{ mgmt_ip }}"
+      commands: modify ltm virtual {{ item.vs_name }} profiles add { {{ item.serverssl_profile }} }
+    with_items: "{{ spreadsheet_virtual_servers }}"
+    when: item.serverssl_profile != ''
+
+  - name: Add routes
+    bigip_static_route:
+      server: "{{ mgmt_ip }}"
+      name: "{{ item.name }}"
+      destination: "{{ item.destination }}"
+      netmask: "{{ item.netmask }}"
+      gateway_address: "{{ item.gateway_address }}"
+    with_items: "{{ spreadsheet_routes }}"  

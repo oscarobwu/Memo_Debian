@@ -1,0 +1,20 @@
+- name: Reset device
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  environment:
+    F5_USER: "admin"
+    F5_PASSWORD: "admin"
+    F5_VALIDATE_CERTS: "no"
+ 
+  tasks:
+  - name: Get facts from XLSX file
+    xls_to_facts:
+      src: ./single-bigip.xlsx
+
+  - name: reset bigip
+    bigip_config:
+      reset: yes
+      save: yes
+      server: "{{ item.mgmt }}"
+    with_items: "{{ spreadsheet_mgmt}}"

@@ -225,6 +225,10 @@ pip install PyNaCl
 pip install netmiko
 
 #pip install idlelib
+pip install pyyaml
+
+#pip install f5-sdk bigsuds netaddr deepdiff request objectpath openpyxl
+pip install deepdiff objectpath
 
 apt install -y idle idle3
 
