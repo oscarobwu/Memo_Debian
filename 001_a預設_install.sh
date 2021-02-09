@@ -12,7 +12,7 @@ apt install python3-pip -y
 ln -s /usr/bin/pip3 /usr/bin/pip
 #
 apt update
-apt upgrade
+apt upgrade -y
 # Install all prerequisite packages
 
 apt install make gcc curl wget vim git-core git tree libsnmp-dev tcpdump htop iftop dnsutils libcurl4-gnutls-dev libxml2-dev libevent-dev linux-headers-`uname -r` build-essential -y
