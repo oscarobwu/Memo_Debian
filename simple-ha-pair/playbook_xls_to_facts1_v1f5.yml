@@ -1,0 +1,20 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  connection: local
+
+  tasks:
+    - name: read excel spreadsheet and return facts   # (1)
+      xls_to_facts:
+        src: simple-ha-pair.xlsx
+      register: result
+
+    - name: display all facts   # (2)
+      debug:
+        msg: "{{ result }}"
+
+    - name: display the ip address of specific hostname   # (3)
+      debug:
+        #msg: "{{ result | json_query('ansible_facts.spreadsheet_Sheet1[?Hostname==`Switch-1`].Mgmt_ip') }}"
+        msg: "{{ result | json_query('ansible_facts.spreadsheet_Sheet1[?hostname==`bigipa.example.com`].Mgmt') }}"
