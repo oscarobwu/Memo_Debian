@@ -1,0 +1,15 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  connection: local
+
+  tasks:
+    - name: read excel spreadsheet and return facts   # (1)
+      xls_to_facts:
+        src: example.xlsx
+      register: result
+
+    - name: display all facts   # (2)
+      debug:
+        msg: "{{ result }}"

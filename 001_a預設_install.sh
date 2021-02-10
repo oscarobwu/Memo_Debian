@@ -229,6 +229,8 @@ pip install pyyaml
 
 #pip install f5-sdk bigsuds netaddr deepdiff request objectpath openpyxl
 pip install deepdiff objectpath
+#
+pip install jmespath
 
 apt install -y idle idle3
 

@@ -5,9 +5,14 @@
 
   tasks:
   - name: Get facts from XLSX file
-    xls_to_facts:
-      src: single-bigip.xlsx
+    xlsx_to_facts:
+      src: single-bigip_v1.xlsx
+    register: result
   
+    #  - name: display all facts   # (2)
+    #    debug:
+    #      msg: "{{ result }}"
+
   - name: set mgmt IP variable
     set_fact:
       mgmt_ip: "{{ item.mgmt }}"

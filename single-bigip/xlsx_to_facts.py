@@ -100,11 +100,13 @@ def read_xls_dict(input_file):
     result = {"ansible_facts":{}}
     spreadsheet = {}
     try:
-        wb = openpyxl.load_workbook(input_file, data_only=True)
-        for sheet in wb.get_sheet_names():
+        wb = openpyxl.load_workbook(input_file, read_only=True, data_only=True)
+        wbs = wb.sheetnames
+        for sheet in wbs:
             ansible_sheet_name = 'spreadsheet_' + sheet
             spreadsheet[ansible_sheet_name] = []
-            current_sheet = wb.get_sheet_by_name(sheet)
+            #current_sheet = wb.get_sheet_by_name(sheet)
+            current_sheet = wb[sheet]
             dict_keys = []
             for c in range(1,current_sheet.max_column + 1):
                 dict_keys.append(current_sheet.cell(row=1,column=c).value)
@@ -128,6 +130,7 @@ def main():
     module = AnsibleModule(argument_spec = dict(
              src = dict(required=True)
              ),
+             #check_invalid_arguments=False,
              add_file_common_args=True)
 
     code, response = read_xls_dict(module.params["src"])
