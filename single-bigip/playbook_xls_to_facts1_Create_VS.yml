@@ -1,0 +1,51 @@
+- name: Setup single big-ip
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars_prompt:
+    - name: "username"
+      prompt: "Enter BIG-IP username"
+      private: no
+    - name: "password"
+      prompt: "Enter BIG-IP password"
+      private: yes
+
+  tasks:
+  - name: Get facts from XLSX file
+    xlsx_to_facts:
+      src: ./single-bigip_lab.xlsx
+
+  - name: set mgmt IP variable
+    set_fact: 
+      mgmt_ip: "{{ item.mgmt }}" 
+    with_items: "{{ spreadsheet_mgmt }}"
+
+  - debug:
+      msg: Server mgmt IP is {{ mgmt_ip }}
+
+  - set_fact:
+      provider:
+        server: "{{ mgmt_ip }}"
+        user: "{{ username}}"
+        password: "{{ password }}"
+        validate_certs: no
+        #server_port: 8443
+
+  - name: Add Standard virtual servers
+    bigip_virtual_server:
+      provider: "{{ provider }}"
+      name: "{{ item.vs_name }}"
+      destination: "{{ item.vs_ip }}"
+      port: "{{ item.vs_port }}"
+      profiles:
+        - tcp
+        - "{{ item.http_profile }}"
+        - "{{ item.clientssl_profile }}"
+        - "{{ item.serverssl_profile}}"
+      pool: "{{ item.pool_name }}"
+      state: "{{ item.state }}"
+      snat: Automap
+      enabled_vlans:
+        - /Common/External_vlan
+    with_items: "{{ spreadsheet_virtual_servers }}"

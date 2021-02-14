@@ -18,7 +18,7 @@
 
   tasks:
   - name: Get facts from XLSX file
-    xls_to_facts:
+    xlsx_to_facts:
       src: ./single-bigip_lab.xlsx
 
   - name: set mgmt IP variable
