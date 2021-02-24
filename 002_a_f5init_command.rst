@@ -1,4 +1,4 @@
-'''
+```
 #(root / default)
  
 tmsh modify sys global-settings mgmt-dhcp disabled
@@ -129,4 +129,4 @@ openssl req -x509 -nodes -subj "$(echo -n "$SUBJ" | tr "\n" "/")" -newkey rsa:20
 
 tmsh install /sys crypto key cloud.example.com_self-signed_2014.key from-local-file /config/ssl/ssl.key/cloud.example.com_self-signed_2014.key
 tmsh install /sys crypto cert cloud.example.com_self-signed_2014.crt from-local-file /config/ssl/ssl.crt/cloud.example.com_self-signed_2014.crt
-'''
+```
