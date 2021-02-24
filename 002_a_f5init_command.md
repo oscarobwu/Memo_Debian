@@ -53,17 +53,20 @@ tmsh modify auth user admin shell bash
 mkdir /home/admin/.ssh && chmod 700 /home/admin/.ssh
 cp -L /root/.ssh/authorized_keys /home/admin/.ssh/
 tmsh modify auth password root  # my_secret_password2
-  
+# Install License  
 tmsh install /sys license registration-key ZXXXX-XXXXX-XXXXX-XXXXX-XXXXXXL
- 
+
+# upload OS
 curl http://10.199.0.141/Hotfix-BIGIP-11.6.0.1.0.403-HF1.iso > /shared/images/Hotfix-BIGIP-11.6.0.1.0.403-HF1.iso
 scp 10.199.0.226:/var/tmp/BIGIP-11.6.0.0.0.401.iso /shared/images/
- 
+# upgrade OS
 tmsh install sys software image BIGIP-11.6.0.0.0.401.iso volume HD1.2
- 
+# upgrade hotfix
 tmsh install sys software hotfix Hotfix-BIGIP-11.6.0.1.0.403-HF1.iso volume HD1.2
 tmsh show sys software status
 tmsh reboot volume HD1.2
+#
+
 mount -o rw,remount /usr
 rpm -Uvh --nodeps \
 http://vault.centos.org/5.8/os/i386/CentOS/yum-3.2.22-39.el5.centos.noarch.rpm \
