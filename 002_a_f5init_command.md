@@ -7,13 +7,13 @@ tmsh create sys management-route default gateway 10.199.0.1
 #(or you can use "config" command - to speed it up)
  
 #DNS
-tmsh modify sys dns name-servers add { 10.199.0.141 10.199.0.142 }
+tmsh modify sys dns name-servers add { 8.8.8.8 8.8.4.4 }
 tmsh modify sys dns search add { cloud.example.com }
 #Hostname
 tmsh modify sys glob hostname lb01.cloud.example.com
 #NTP
 tmsh modify sys ntp servers add { 0.rhel.pool.ntp.org 1.rhel.pool.ntp.org }
-tmsh modify sys ntp timezone "UTC"
+tmsh modify sys ntp timezone "Asia/Taipei"
 #Seesion timeout
 tmsh modify sys sshd inactivity-timeout 120000
 tmsh modify sys http auth-pam-idle-timeout 120000
