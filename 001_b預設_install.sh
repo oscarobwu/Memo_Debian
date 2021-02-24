@@ -234,6 +234,10 @@ pip install pyyaml
 pip install deepdiff objectpath
 #
 pip install jmespath
+#
+pip install sqlalchemy-utils
+
+pip install influxdb-client
 
 apt install -y idle idle3
 
