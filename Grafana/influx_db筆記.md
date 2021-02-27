@@ -1,5 +1,5 @@
 在Debian的環境下安裝使用 influxdb
-
+```
 Step1 安裝
 Demo by Debian10.6 & influxDB1
 下載安裝並啟動
@@ -170,4 +170,4 @@ influx -host 'localhost' -port '8086' -ssl -unsafeSsl -username 'usr' -password 
 --有權限才能看到資料
 
 show databases
- 
+ ```
