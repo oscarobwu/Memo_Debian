@@ -195,6 +195,8 @@ EOF
 
 # 關閉 beep 聲音
 sed -i 's/# set bell-style none/set bell-style none/g' /etc/inputrc
+# 關閉 ipv6
+sed -i 's/#net.ipv6.conf.all.disable_ipv6 = 1/net.ipv6.conf.all.disable_ipv6 = 1/g' /etc/sysctl.conf
 #
 pip install Stats
 
