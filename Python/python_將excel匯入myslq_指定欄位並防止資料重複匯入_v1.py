@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np 
 import time
 
-wb = openpyxl.load_workbook(r'D:\share\20201231\python_test\123\Singapore_KU正式區主機清單.xlsx')
+wb = openpyxl.load_workbook(r'D:\share\20201231\python_test\123\Singapore.xlsx')
 ws = wb['SingaporeSite']
 ##
 # map is a convenient way to construct a list. you can get a 2x2 tuple by slicing 
