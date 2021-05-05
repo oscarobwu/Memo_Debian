@@ -1,3 +1,4 @@
+'''
 # Run all commands logged in as root or "sudo su - "
 # Start from a base Debian 10 install and update it to current.
 # Add backports repo so that we can install odbc-mariadb.
@@ -309,3 +310,4 @@ function finish {
 
 # When your script is finished, exit with a call to the function, "finish":
 trap finish EXIT
+'''
