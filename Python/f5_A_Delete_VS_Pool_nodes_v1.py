@@ -72,7 +72,7 @@ for y in range(0, count):
         print(virtual.name)
         print(" show2 : {} ".format(DATA['Virtual_Server'][y]))
         time.sleep(2)
-        delete_vs(bigip, DATA['Virtual_server'][y])
+        delete_vs(bigip, DATA['Virtual_Server'][y])
         print("delete Virtual Server \"%s\"....." % (DATA['Virtual_Server'][y]))
 
 #Delete Pool
