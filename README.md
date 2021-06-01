@@ -97,3 +97,13 @@ mysql -u root -p
 現在，該命令將提示您輸入新分配的密碼。輸入它，您應該可以按預期訪問數據庫提示。
 
 ```
+
+```
+要先安裝 node.js mysql 套件
+進入到套件路徑
+cd /var/ilx/workspaces/Common/irules_lx_mysql_workspace/extensions/mysql_extension/
+#
+npm install mysql --save
+# 確認套件
+# ls node_modules/
+```
