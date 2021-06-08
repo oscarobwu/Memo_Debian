@@ -28,12 +28,20 @@ $ wget https://github.com/prometheus/prometheus/releases/download/v2.0.0/prometh
 $ sha256sum prometheus-2.0.0.linux-amd64.tar.gz 
 e12917b25b32980daee0e9cf879d9ec197e2893924bd1574604eb0f550034d46  prometheus-2.0.0.linux-amd64.tar.gz
 $ tar xvf prometheus-2.0.0.linux-amd64.tar.gz
+安裝最新版 2.27.1 / 2021-05-18
+# VER=2.27.1
+# wget https://github.com/prometheus/prometheus/releases/download/v$VER/prometheus-$VER.linux-amd64.tar.gz
+# tar xzf prometheus-$VER.linux-amd64.tar.gz
 ```
 
 ## Put bits of prometheus in places
 ```bash
 $ sudo cp prometheus-2.0.0.linux-amd64/prometheus /usr/local/bin/
 $ sudo cp prometheus-2.0.0.linux-amd64/promtool /usr/local/bin/
+
+$ sudo cp prometheus-$VER.linux-amd64/prometheus /usr/local/bin/
+$ sudo cp prometheus-$VER.linux-amd64/promtool /usr/local/bin/
+
 $ sudo chown prometheus:prometheus /usr/local/bin/prometheus
 $ sudo chown prometheus:prometheus /usr/local/bin/promtool
 ```
@@ -42,6 +50,11 @@ $ sudo chown prometheus:prometheus /usr/local/bin/promtool
 $ sudo cp -r prometheus-2.0.0.linux-amd64/prometheus.yml /etc/prometheus/
 $ sudo cp -r prometheus-2.0.0.linux-amd64/consoles /etc/prometheus
 $ sudo cp -r prometheus-2.0.0.linux-amd64/console_libraries /etc/prometheus
+
+$ sudo cp -r prometheus-$VER.linux-amd64/prometheus.yml /etc/prometheus/
+$ sudo cp -r prometheus-$VER.linux-amd64/consoles /etc/prometheus
+$ sudo cp -r prometheus-$VER.linux-amd64/console_libraries /etc/prometheus
+
 $ sudo chown -R prometheus:prometheus /etc/prometheus/prometheus.yml
 $ sudo chown -R prometheus:prometheus /etc/prometheus/consoles
 $ sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
