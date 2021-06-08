@@ -115,6 +115,46 @@ $ tar xvf node_exporter-0.15.1.linux-amd64.tar.gz
 
 $ sudo cp node_exporter-0.15.2.linux-amd64/node_exporter /usr/local/bin/
 $ sudo chown prometheus:prometheus /usr/local/bin/node_exporter
+
+$ node_exporter 最新 1.1.2 / 2021-03-05
+curl -s https://api.github.com/repos/prometheus/node_exporter/releases/latest \
+| grep browser_download_url \
+| grep linux-amd64 \
+| cut -d '"' -f 4 \
+| wget -qi -
+
+設定執行
+#
+tar -xvf node_exporter*.tar.gz
+cd  node_exporter*/
+sudo cp node_exporter /usr/local/bin
+#
+$ node_exporter --version
+node_exporter, version x.xx.x (branch: HEAD, revision: 3db77732e925c08f675d7404a8c46466b2ece83e)
+  build user:       root@b50852a1acba
+  build date:       20190604-16:41:18
+  go version:       go1.12.5
+#
+sudo tee /etc/systemd/system/node_exporter.service <<EOF
+[Unit]
+Description=Node Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=prometheus
+ExecStart=/usr/local/bin/node_exporter
+
+[Install]
+WantedBy=default.target
+EOF
+#
+sudo systemctl daemon-reload
+sudo systemctl start node_exporter
+sudo systemctl enable node_exporter
+確認服務
+$  systemctl status node_exporter.service 
+
 ```
 
 ## Test if node_exporter runs
@@ -164,6 +204,23 @@ scrape_configs:
 
 ```bash
 $ sudo service prometheus start
+```
+## Download and install AlertManager
+```bash
+$ wget https://github.com/prometheus/node_exporter/releases/download/v0.15.2/node_exporter-0.15.2.linux-amd64.tar.gz
+$ sha256sum node_exporter-0.15.2.linux-amd64.tar.gz 
+1ce667467e442d1f7fbfa7de29a8ffc3a7a0c84d24d7c695cc88b29e0752df37  node_exporter-0.15.2.linux-amd64.tar.gz
+$ tar xvf node_exporter-0.15.1.linux-amd64.tar.gz
+
+$ sudo cp node_exporter-0.15.2.linux-amd64/node_exporter /usr/local/bin/
+$ sudo chown prometheus:prometheus /usr/local/bin/node_exporter
+
+$ 下載最新 0.22.2 / 2021-06-01
+export VERSION=0.22.2
+curl -LO https://github.com/prometheus/alertmanager/releases/download/v$VERSION/alertmanager-$VERSION.darwin-amd64.tar.gz
+tar xvf alertmanager-$VERSION.darwin-amd64.tar.gz
+
+
 ```
 
 ## Further reading:
