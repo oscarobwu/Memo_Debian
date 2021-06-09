@@ -266,3 +266,56 @@ tar xvf alertmanager-$VERSION.darwin-amd64.tar.gz
 ## Further reading:
 
 http://docs.grafana.org/installation/debian/
+
+## 安裝 GO 語言
+```bash
+$ sudo apt update
+$ sudo apt install curl
+# 最新 go1.16.5
+$ GOVER=2.27.1
+$ curl -O https://dl.google.com/go/go$GOVER.linux-amd64.tar.gz
+
+# 比對 
+$sha256sum go$GOVER.linux-amd64.tar.gz
+
+# 安裝
+$ tar xvf go$GOVER.linux-amd64.tar.gz
+$ sudo chown -R root:root ./go
+$ sudo mv go /usr/local
+
+# 設定路徑
+$ vi ~/.profile
+# 新增以下兩行 在文件最後，添加以下幾行
+export GOPATH=$HOME/work
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
+#如果您為 Go 選擇了不同的安裝位置，那麼您應該將以下行添加到此文件中，而不是上面顯示的行。在這個例子中，如果你在你的主目錄中安裝了 Go，我們將添加所需的行：
+# 這為選項
+export GOROOT=$HOME/go
+export GOPATH=$HOME/work
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+# 讓GO的設定生效
+$ source ~/.profile
+
+測試 GO 是否生效
+
+mkdir $HOME/work
+mkdir -p work/src/my_project/hello
+vi ~/work/src/my_project/hello/hello.go
+# 內容如下
+package main
+
+import "fmt"
+
+func main() {
+   fmt.Printf("Hello, World!\n")
+}
+# end
+
+$ go install my_project/hello
+ 
+$ hello
+
+$ which hello
+```
