@@ -272,7 +272,7 @@ http://docs.grafana.org/installation/debian/
 $ sudo apt update
 $ sudo apt install curl
 # 最新 go1.16.5
-$ GOVER=2.27.1
+$ GOVER=1.16.5
 $ curl -O https://dl.google.com/go/go$GOVER.linux-amd64.tar.gz
 
 # 比對 
