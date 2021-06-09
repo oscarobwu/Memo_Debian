@@ -149,6 +149,9 @@ $ tar xvf node_exporter-0.15.1.linux-amd64.tar.gz
 $ sudo cp node_exporter-0.15.2.linux-amd64/node_exporter /usr/local/bin/
 $ sudo chown prometheus:prometheus /usr/local/bin/node_exporter
 
+# 建立使用者
+useradd -M -r -s /bin/false node_exporter
+
 $ node_exporter 最新 1.1.2 / 2021-03-05
 curl -s https://api.github.com/repos/prometheus/node_exporter/releases/latest \
 | grep browser_download_url \
@@ -181,12 +184,16 @@ ExecStart=/usr/local/bin/node_exporter
 [Install]
 WantedBy=default.target
 EOF
+# 設定權限
+chown node_exporter:node_exporter /usr/local/bin/node_exporter
 #
 sudo systemctl daemon-reload
 sudo systemctl start node_exporter
 sudo systemctl enable node_exporter
 確認服務
 $  systemctl status node_exporter.service 
+
+
 
 ```
 
