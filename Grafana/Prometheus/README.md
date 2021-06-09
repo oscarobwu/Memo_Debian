@@ -3,8 +3,8 @@
 ## install gosu
 _just to not wrestle with sudo and exec_
 ```bash
-$ sudo apt-get update
-$ sudo apt-get install gosu
+$ sudo apt update
+$ sudo apt install gosu
 ```
 
 ## Create prometheus user
