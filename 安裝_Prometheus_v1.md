@@ -1,4 +1,4 @@
-'''
+```
 
 安裝 設定 Prometheus and node_exporter
 
@@ -199,4 +199,4 @@ Add new job under scrape_config section.
 
 sudo systemctl restart prometheus
 
-'''
+```
