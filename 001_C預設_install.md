@@ -21,6 +21,7 @@ apt install net-tools sudo vim-gtk ack-grep ctags  -y
 apt install expect -y
 apt install nodejs -y
 apt install yarn rdate -y
+apt install chrony -y
 apt install libssl-dev libghc-zlib-dev libexpat1-dev gettext unzip -y
 apt install fping graphviz imagemagick mtr-tiny acl tmux -y
 
