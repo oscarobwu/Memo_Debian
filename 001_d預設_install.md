@@ -312,3 +312,40 @@ function finish {
 # When your script is finished, exit with a call to the function, "finish":
 trap finish EXIT
 ```
+
+```
+設定NTP
+
+
+Chrony 系統校時工具
+
+apt install chrony -y
+
+systemctl restart chrony.service
+systemctl enable chrony.service
+systemctl status chrony.service
+
+設定檔
+
+vi /etc/chrony/chrony.conf
+
+server tock.stdtime.gov.tw
+server watch.stdtime.gov.tw
+server time.stdtime.gov.tw
+server clock.stdtime.gov.tw
+server tick.stdtime.gov.tw 
+
+#
+systemctl restart chrony.service
+#
+檢查更新狀態
+
+#查看 NTP 狀態
+$ chronyc sources -v
+
+
+$ chronyc -a makestep
+
+查看與 ntp server 的同步狀態，與 ntp server 誤差
+$ chronyc tracking
+```
