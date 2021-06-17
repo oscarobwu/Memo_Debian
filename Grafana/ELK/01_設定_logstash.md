@@ -1,4 +1,19 @@
 ```
+範例
+input {
+    tcp {
+        port => 5000
+    }
+}
+
+## Add your filters / logstash plugins configuration here
+
+output {
+    elasticsearch {
+        hosts => "elasticsearch:9200"
+    }
+
+########################################
 將log 分送redis 
 
 input{
