@@ -143,3 +143,121 @@ output{
     }
 }
 ```
+```
+
+input {
+    # beats輸入外掛程式
+    beats {
+        #綁定主機
+        host => "0.0.0.0"
+        #綁定埠
+        port => 5044
+        #額外添加欄位，這裡是為了區分來自哪一個外掛程式
+        add_field => {"[fields][class]" => "beats"}
+    }
+
+    syslog {
+        #綁定埠
+        port => 514
+        #額外添加欄位，這裡是為了區分來自哪一個外掛程式
+        add_field => {"[fields][class]" => "json"}
+    }
+}
+ 
+filter { 
+    # 處理來自beats外掛程式的日誌,beats這裡收集的是tomcat的日誌
+    # 樣例：192.168.68.88 - - [16/Mar/2020:11:22:08 +0800] "GET /esws/testService/test?name=天道酬勤&size=50 HTTP/1.1" 200 15315
+    if [fields][class] == "beats"{
+        #grop過濾外掛程式，在編寫grop時，可以使用kibana，kibana上有編寫工具，無需自己搭建（官方grok速度太慢）
+        grok {
+            #解析Apache日誌，自動分割
+            match => { "message" => "%{COMMONAPACHELOG}" }
+        }
+        #鍵值篩檢程式
+        kv {
+            #對request欄位操作
+            source => "request"
+            按照& ？ 分割
+            field_split => "&?"
+            value_split => "="
+            #選取自己需要的分割後的欄位
+            include_keys => ["op","reportlet","formlet"] 
+        } 
+        #解碼
+        urldecode {
+            #解碼全部欄位
+            all_fields => true
+        }
+        #日期處理外掛程式
+        date {
+            #日期匹配，匹配格式可以有多個
+            match => ["timestamp", "dd/MMM/yyyy:HH:mm:ss Z"]
+            #匹配的日期存儲到欄位中
+            target => "@timestamp"
+        }
+            
+        # 資料修改
+        mutate{
+            #移除指定欄位
+            remove_field => ["agent","beat","offset","tags","prospector","log","ident","[host][name]","[host][hostname]","[host][architecture]","[host][os]","[host][id]","auth","[input][type]"]
+            #複製欄位
+            copy => { "@timestamp" => "timestamp" }
+            #copy => { "[fields][fields_type]" => "fields_type" }
+            copy => { "formlet" => "reportlet" }
+        }
+        
+        mutate{
+            #替換
+            gsub => ["reportlet", "%2F", "/"]
+        }
+        
+        if ! [fields_type]  {
+            mutate{
+                copy => { "[fields][fields_type]" => "fields_type" }
+            }
+        }
+ 
+        date{
+            match => [ "timestamp", "yyyy-MM-dd-HH:mm:ss" ]
+            locale => "cn"
+        }
+        
+        #ip解析，分析IP的位置
+        geoip{
+            source => "clientip"
+        }
+    }
+    #處理來自syslog外掛程式的日誌
+    if [fields][class] == "json"{
+        json {
+            source => "message"
+        }
+        
+        if [host] == "192.168.68.100" {
+            mutate{
+                add_field => {"fields_type" => "firewall"}
+            }
+        }
+    }
+    
+      if ! [fields_type] {
+                        mutate{
+                add_field => {"fields_type" => "error-221"}
+                        }       
+                } 
+}
+ 
+output {
+    elasticsearch {
+        action => "index"
+        # 填寫ES集群
+        hosts => ["http://node-01:9200","http://node-02:9200","http://node-03:9200"]
+        # ES如果有登陸驗證，要配置用戶名和密碼
+        #    user => "admin"
+        #    password => "123456"
+        # 按欄位值，存入不同的索引中
+        index => "%{fields_type}-%{+YYYY-MM}"
+    }
+}
+
+```
