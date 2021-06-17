@@ -222,17 +222,16 @@ filter {
             locale => "cn"
         }
         
-        #ip解析，分析IP的位置
+        # ip解析，分析IP的位置
         geoip{
             source => "clientip"
         }
     }
-    #處理來自syslog外掛程式的日誌
+    # 處理來自syslog外掛程式的日誌
     if [fields][class] == "json"{
         json {
             source => "message"
         }
-        
         if [host] == "192.168.68.100" {
             mutate{
                 add_field => {"fields_type" => "firewall"}
@@ -240,11 +239,11 @@ filter {
         }
     }
     
-      if ! [fields_type] {
-                        mutate{
-                add_field => {"fields_type" => "error-221"}
-                        }       
-                } 
+    if ! [fields_type] {
+        mutate{
+            add_field => {"fields_type" => "error-221"}
+        }       
+    } 
 }
  
 output {
