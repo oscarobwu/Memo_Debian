@@ -399,5 +399,31 @@ systemctl restart redis.service
 systemctl status redis.service
 systemctl enable redis.service
 
+設定認證
+
+vi /etc/redis/redis.conf
+
+修改
+# requirepass foobared
+改為如下
+requirepass OBAlsW34%#df
+
+重啟服務
+
+systemctl restart redis-server
+
+測試
+redis-cli
+
+127.0.0.1:6379> INFO server
+出現
+NOAUTH Authentication required.
+
+輸入指令
+
+127.0.0.1:6379> AUTH AlsW34%#df
+OK
+127.0.0.1:6379> INFO server
+顯示redis資訊
 
 ```
