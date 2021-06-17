@@ -349,3 +349,55 @@ $ chronyc -a makestep
 查看與 ntp server 的同步狀態，與 ntp server 誤差
 $ chronyc tracking
 ```
+```
+apt install pkg-config
+##
+wget https://download.redis.io/releases/redis-6.2.4.tar.gz
+tar xvzf redis-6.2.4.tar.gz
+cd redis-6.2.4
+
+make
+#make install PREFIX=/usr/local/redis
+or
+make install
+
+#cd src && make all
+
+mkdir /etc/redis
+cp redis.conf /etc/redis/
+
+sudo useradd --system redis
+
+sudo tee /etc/systemd/system/redis.service <<EOF
+[Unit]
+Description=Redis
+After=syslog.target
+
+[Service]
+ExecStart=/usr/local/bin/redis-server /etc/redis/redis.conf
+RestartSec=5s
+Restart=on-success
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+修改 
+sudo vi /etc/redis/redis.conf
+
+maxmemory 256mb
+maxmemory-policy allkeys-lru
+
+#daemonize yes
+bind 0.0.0.0 ::
+
+ps -ef |grep redis
+$ sudo netstat -pnltu
+
+systemctl daemon-reload
+systemctl restart redis.service
+systemctl status redis.service
+systemctl enable redis.service
+
+
+```
