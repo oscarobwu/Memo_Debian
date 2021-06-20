@@ -157,3 +157,31 @@ INSERT INTO `employee` (employee_c_name, employee_username, employee_password)
 ?>
 
 ```
+```
+練習用php建立資料庫
+<?php
+$dbhost = 'localhost:3306';  // mysql伺服器主機地址
+$dbuser = 'my_user';            // mysql使用者名稱
+$dbpass = 'my_password';          // mysql使用者名稱密碼
+$conn = mysqli_connect($dbhost, $dbuser, $dbpass);
+if(! $conn )
+{
+    die('連線失敗: ' . mysqli_error($conn));
+}
+echo '連線成功<br />';
+$sql = "CREATE TABLE ITREAD01_tbl( ".
+        "ITREAD01_id INT NOT NULL AUTO_INCREMENT, ".
+        "ITREAD01_title VARCHAR(100) NOT NULL, ".
+        "ITREAD01_author VARCHAR(40) NOT NULL, ".
+        "submission_date DATE, ".
+        "PRIMARY KEY ( ITREAD01_id ))ENGINE=InnoDB DEFAULT CHARSET=utf8; ";
+mysqli_select_db( $conn, 'my_db' );
+$retval = mysqli_query( $conn, $sql );
+if(! $retval )
+{
+    die('資料表建立失敗: ' . mysqli_error($conn));
+}
+echo "資料表建立成功\n";
+mysqli_close($conn);
+?>
+```
