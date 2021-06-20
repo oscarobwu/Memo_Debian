@@ -184,4 +184,49 @@ if(! $retval )
 echo "資料表建立成功\n";
 mysqli_close($conn);
 ?>
+
+記憶體釋放
+在我們執行完 SELECT 語句後，釋放遊標記憶體是一個很好的習慣。
+
+可以通過 PHP 函式 mysqli_free_result() 來實現記憶體的釋放。
+
+以下例項演示了該函式的使用方法。
+使用 mysqli_free_result 釋放記憶體：
+<?php
+$dbhost = 'localhost:3306';  // mysql伺服器主機地址
+$dbuser = 'my_user';            // mysql使用者名稱
+$dbpass = 'my_password';          // mysql使用者名稱密碼
+$conn = mysqli_connect($dbhost, $dbuser, $dbpass);
+if(! $conn )
+{
+    die('連線失敗: ' . mysqli_error($conn));
+}
+// 設定編碼，防止中文亂碼
+mysqli_query($conn , "set names utf8");
+ 
+$sql = 'SELECT ITREAD01_id, ITREAD01_title, 
+        ITREAD01_author, submission_date
+        FROM ITREAD01_tbl';
+ 
+mysqli_select_db( $conn, 'my_db' );
+$retval = mysqli_query( $conn, $sql );
+if(! $retval )
+{
+    die('無法讀取資料: ' . mysqli_error($conn));
+}
+echo '<h2>入門教學 mysqli_fetch_array 測試<h2>';
+echo '<table border="1"><tr><td>教程 ID</td><td>標題</td><td>作者</td><td>提交日期</td></tr>';
+while($row = mysqli_fetch_array($retval, MYSQLI_NUM))
+{
+    echo "<tr><td> {$row[0]}</td> ".
+         "<td>{$row[1]} </td> ".
+         "<td>{$row[2]} </td> ".
+         "<td>{$row[3]} </td> ".
+         "</tr>";
+}
+echo '</table>';
+// 釋放記憶體
+mysqli_free_result($retval);
+mysqli_close($conn);
+?>
 ```
