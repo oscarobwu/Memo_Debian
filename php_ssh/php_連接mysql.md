@@ -1,3 +1,44 @@
+
+#安裝 phpMyAdmin 來管理 MariaDB
+```
+Step 2: Download phpMyAdmin
+
+cd ~/
+wget -P Downloads https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz
+
+Step 3: Check phpMyAdmin GPG Key
+wget -P Downloads https://files.phpmyadmin.net/phpmyadmin.keyring
+cd Downloads
+gpg --import phpmyadmin.keyring
+
+cd ~/
+wget -P Downloads https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz.asc
+cd Downloads
+gpg --verify phpMyAdmin-latest-all-languages.tar.gz.asc
+
+
+sudo mkdir /var/www/html/phpMyAdmin
+cd ~/
+cd Downloads
+
+sudo tar xvf phpMyAdmin-latest-all-languages.tar.gz --strip-components=1 -C /var/www/html/phpMyAdmin
+
+sudo cp /var/www/html/phpMyAdmin/config.sample.inc.php /var/www/html/phpMyAdmin/config.inc.php
+
+sudo vi /var/www/html/phpMyAdmin/config.inc.php
+將
+$cfg['blowfish_secret'] = '';
+修改為
+$cfg['blowfish_secret'] = 'my_secret_passphrase';
+設定檔案權限
+sudo chmod 660 /var/www/html/phpMyAdmin/config.inc.php
+修改使用者權限
+sudo chown -R nginx:nginx /var/www/html/phpMyAdmin
+
+systemctl restart nginx
+```
+
+
 ```
 php + mysql 練習
 
