@@ -10,6 +10,16 @@ CREATE USER 'my_user'@'localhost' IDENTIFIED BY 'my_password';
 # 設定使用者權限
 GRANT ALL PRIVILEGES ON my_db.* TO 'my_user'@'localhost';
 
+SELECT * FROM books;
+
+SELECT * FROM employee;
+
+DROP TABLE books;
+DROP TABLE employee;
+
+flush privileges;
+
+
 建立 資料庫 使用到的 table
 
 # 重點在於我麼 key IP要對 一致
