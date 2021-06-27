@@ -1,4 +1,38 @@
 ```
+設定 fish 設定
+
+要先安裝的
+apt update && sudo apt upgrade -y
+#sudo apt-add-repository ppa:fish-shell/release-3
+sudo apt update
+sudo apt install fish
+sudo apt install powerline
+
+
+mkdir ~/.config/powerline
+mkdir ~/.config/powerline/colorschemes   
+mkdir ~/.config/powerline/themes
+mkdir ~/.config/powerline/themes/shell
+
+##########################
+設定 fish 
+cat ~/.config/fish/config.fish
+
+#set fish_function_path $fish_function_path "/home/andrew/.local/lib/python3.4/site-packages/powerline/bindings/fish"
+set fish_function_path $fish_function_path "/usr/local/lib/python3.7/dist-packages/powerline/bindings/fish"
+#set fish_function_path $fish_function_path "{repository_root}/powerline/bindings/fish"
+powerline-setup
+
+function prompt_pwd --description 'Print the current working directory, NOT shortened to fit the prompt'
+    if test "$PWD" != "$HOME"
+        printf "%s" (echo $PWD|sed -e 's|/private||' -e "s|^$HOME|~|")
+    else
+        echo '~'
+    end
+end
+##################################
+```
+```
 設定powerline布景
 /themes/shell/default.json
 cat ~/.config/powerline/themes/shell/default.json
