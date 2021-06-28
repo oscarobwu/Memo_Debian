@@ -24,6 +24,7 @@ apt install yarn rdate -y
 apt install chrony -y
 apt install libssl-dev libghc-zlib-dev libexpat1-dev gettext unzip -y
 apt install fping graphviz imagemagick mtr-tiny acl tmux -y
+apt install fail2ban -y
 
 ###apt install vim-gtk -y
 apt install whois rrdtool librrds-perl python-memcache python-mysqldb -y
