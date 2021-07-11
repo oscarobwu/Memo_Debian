@@ -174,3 +174,8 @@ plt.xlabel('Time')
 plt.ylabel('Temperature')
 plt.plot(time, tem ,'b-o')
 plt.show()
+
+#練習取grafana plant 圖表值
+import requests
+response = requests.get('http://your.graphite.host.com/render?target=queue.prod.high.total_queues&format=json')
+data = response.json()
