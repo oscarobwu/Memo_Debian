@@ -18,3 +18,17 @@ EOF
 
 [ $# -lt 2 ] && help;
 [ $# -eq 2 ] && printf "${2}:`openssl passwd -apr1`\n" >> ${1}
+
+#################################################
+    #
+    #目錄權限設定
+    #
+    location /phpMyAdmin/ {
+        auth_basic              "Restricted Access!";
+        auth_basic_user_file    /etc/nginx/conf.d/.pwdfile; 
+    }
+ #######################################################
+ 
+ 
+ 
+ 
