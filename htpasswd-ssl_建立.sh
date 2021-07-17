@@ -7,6 +7,7 @@
 # 設定 sudo chmod +x htpasswd-ssl.sh
 #
 # 使用 command 方式 : sudo ./htpasswd-ssl.sh /etc/nginx/pwdfile USERNAME
+# 使用 command 方式 : sudo ./htpasswd-ssl.sh /etc/nginx/conf.d/.pwdfile username
 #
 help (){
 cat <<EOF
