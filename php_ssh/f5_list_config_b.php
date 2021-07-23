@@ -10,7 +10,7 @@ $now = date_create()->format('Y-m-d_H:i:s');
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title><?php echo $now;?>_Virtual_Service_<?php echo $_POST['bigip']; ?></title>
+<title><?php echo $now;?>_<?php echo $_POST['funtion']; ?>_Service_<?php echo $_POST['bigip']; ?></title>
         <style>body{filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#86CEFF,endcolorstr=#000099,gradientType=1);}</style>
 </head>
 <a href ="#" id="donwload-link" onClick="myFunction()">下載狀態檔 html </a>
