@@ -331,3 +331,15 @@ function finish {
 # When your script is finished, exit with a call to the function, "finish":
 trap finish EXIT
 ```
+
+```
+#####################################
+
+cat /etc/issue
+
+Debian GNU/Linux 10 \n \l
+
+My IP address: \4 \l
+
+\d \t
+```
