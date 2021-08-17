@@ -2,9 +2,9 @@
 ----
 
 1. 通訊軟體
-  > Line
-  > Telegram
-  > Skype
+  * Line
+  * Telegram
+  * Skype
  
 2. Code軟體
    python 3.9.6
