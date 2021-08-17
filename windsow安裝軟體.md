@@ -10,3 +10,9 @@
    python 3.9.6
    
 3. Office
+
+4. 連接軟體
+
+   * pytty
+   * mRemoteNG
+   * winSCP
