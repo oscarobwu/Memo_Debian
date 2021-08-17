@@ -1,6 +1,6 @@
 #mRemoteNG - External Applications
 
-```
+'''
 posted 2010年10月29日 下午3:52 by Francois-Xavier   [ updated 2010年10月29日 下午4:00 ]
 Tags: mRemote mRemoteNG external apps externals applications application
 
@@ -268,4 +268,4 @@ Arguments: -noexit Get-WmiObject win32_share -computer %hostname%|sort name|fl
 Application: Shutdown GUi
 Filename: shutdown
 Arguments: /i /m %hostname%
-```
+'''
