@@ -10,8 +10,10 @@
 2. Code軟體
    python 3.9.6
    ```
-   pip install f5-sdk
-   pip install bigsuds
+   python.exe -m pip install --upgrade pip
+   python.exe -m pip install f5-sdk
+   python.exe -m pip install bigsuds
+   python.exe -m pip install bigrest
    ```
    
 3. Office
