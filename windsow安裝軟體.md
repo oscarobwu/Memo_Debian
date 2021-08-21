@@ -9,6 +9,10 @@
  
 2. Code軟體
    python 3.9.6
+   ```
+   pip install f5-sdk
+   pip install bigsuds
+   ```
    
 3. Office
 
