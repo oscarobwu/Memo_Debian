@@ -96,6 +96,7 @@ server {
         #       # With php-cgi (or other tcp sockets):
         #       fastcgi_pass 127.0.0.1:9000;
         #}
+        # Gitlab設定
     location /repos {
         proxy_pass http://127.0.0.1:10987;
         proxy_set_header Host $http_host;
