@@ -349,6 +349,8 @@ trap finish EXIT
 ```
 
 ```
+vi install plug
+:PlugInstall
 #####################################
 
 cat /etc/issue
