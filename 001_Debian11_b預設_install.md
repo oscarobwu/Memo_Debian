@@ -87,7 +87,7 @@ cp -r vim-temp/snmp_f5/* /usr/share/snmp/mibs/
 #
 cd vim-temp
 cp .vimrc ~/.vimrc
-cp -R .vim/* ../.vim
+cp -R .vim/* /root/.vim
 
 
 cd ~
