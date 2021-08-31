@@ -204,11 +204,13 @@ $  systemctl status node_exporter.service
 在scrape_config部分下添加新工作。
 
 ```
+sudo vim /etc/prometheus/prometheus.yml
+
 - job_name: 'node_exporter'
     static_configs:
       - targets: ['localhost:9100']
 ```
 
-
+```
 sudo systemctl restart prometheus
-
+```
