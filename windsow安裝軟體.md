@@ -15,7 +15,16 @@
    python.exe -m pip install bigsuds
    python.exe -m pip install bigrest
    ```
-   
+   vscode
+   ```
+   1. Markdown All in One
+   2. Markdown Preview Enhanced
+   3. Markdown Preview Github Styling
+   4. Pyhton
+   5. Code Runner
+   ```
+
+
 3. Office
 
 4. 連接軟體
