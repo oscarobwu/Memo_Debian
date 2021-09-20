@@ -361,3 +361,43 @@ My IP address: \4 \l
 
 \d \t
 ```
+
+### Debian 11 把 rc.local 加回來
+
+```
+cat <<EOF >/etc/rc.local
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+exit 0
+EOF
+
+```
+#### 接著我們賦予 rc.local 可執行的權限
+
+```
+chmod +x /etc/rc.local
+
+```
+#### 再來就可以啟動 rc-local 服務了
+
+```language
+systemctl start rc-local
+
+```
+
+觀察看看是否有正確運作
+```language
+systemctl status rc-local
+
+```
