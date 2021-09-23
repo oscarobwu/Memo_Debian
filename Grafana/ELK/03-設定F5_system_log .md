@@ -26,3 +26,6 @@ cp syslogpri.yml /etc/logstash/dictionaries/syslogpri.yml
 將 port 改為 5514
 
 ```
+```
+http://192.168.88.245:9200/_cat/indices?v
+```
