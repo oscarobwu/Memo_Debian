@@ -120,6 +120,10 @@ systemctl enable --now kibana
 
 apt install logstash -y
 
+#安裝套件
+sudo /usr/share/logstash/bin/logstash-plugin install logstash-filter-dns
+sudo /usr/share/logstash/bin/logstash-plugin install logstash-filter-geoip
+
 ```
 
 ## 安裝 Filebeat
