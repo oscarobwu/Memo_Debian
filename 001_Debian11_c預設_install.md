@@ -636,3 +636,35 @@ sudo fail2ban-client set sshd banip <ip address>
 sudo fail2ban-client set sshd unbanip <ip address>
 
 ```
+### 設定 ssh 登入
+
+
+```bash
+vi /etc/ssh/sshd_config
+
+請不允許root登入，現在系統預設都不是允許，所以將這行註解
+
+# PermitRootLogin yes
+允許 oscar 任何地方登入，只需列出用戶名：
+
+AllowUsers oscar
+上面的AllowUsers 一旦有設定，未在表列中的用戶就再也無法登入
+
+允許root從192.168.1.32登入：
+
+AllowUsers root@192.168.88.250
+這項設定必需允許 PermitRootLogin yes
+
+允許整個網段登入
+
+AllowUsers root@10.200.*
+可以在同一行指定多個帳戶登入用，注意IPv6 的寫法
+
+AllowUsers oscar@10.* oscar@172.109.* oscar@2401:e180:8991:*
+使用群組限制，只有允許群組 user 登入
+
+AllowGroups user
+
+設定完記得重啟 ssh
+systemctl restart sshd
+```
