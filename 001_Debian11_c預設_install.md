@@ -609,3 +609,22 @@ systemctl start rc-local
 systemctl status rc-local
 
 ```
+### 新增 fail2ban 條件規則
+
+```
+[sshd]
+
+# To use more aggressive sshd modes set filter parameter "mode" in jail.local:
+# normal (default), ddos, extra or aggressive (combines all).
+# See "tests/files/logs/sshd" or "filter.d/sshd.conf" for usage example and details.
+#mode   = normal
+port    = ssh
+logpath = %(sshd_log)s
+backend = %(sshd_backend)s
+enabled = true
+maxretry = 3
+findtime  = 1d
+bantime   = 4w
+ignoreip  = 127.0.0.1/8 192.168.88.250
+
+```
