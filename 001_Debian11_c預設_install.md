@@ -537,7 +537,9 @@ exit 0
 EOF
 
 chmod +x /etc/rc.local
-
+#
+systemctl start rc-local
+#
 cd ~
 rm Python-3.9.6.tgz
 rm -R Python-3.9.6
