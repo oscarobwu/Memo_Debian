@@ -612,6 +612,8 @@ systemctl status rc-local
 ### 新增 fail2ban 條件規則
 
 ```
+內容如下 :
+##########
 [sshd]
 
 # To use more aggressive sshd modes set filter parameter "mode" in jail.local:
@@ -626,5 +628,11 @@ maxretry = 3
 findtime  = 1d
 bantime   = 4w
 ignoreip  = 127.0.0.1/8 192.168.88.250
+
+#########################
+# 封鎖 IP
+sudo fail2ban-client set sshd banip <ip address>
+# 解鎖 IP
+sudo fail2ban-client set sshd unbanip <ip address>
 
 ```
