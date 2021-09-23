@@ -6,7 +6,7 @@
 #
 #        USAGE: grafana-dashboard-importer_to_Folders.sh
 #
-#  DESCRIPTION:
+#  DESCRIPTION: 將 dashboard匯入目錄
 #
 #      OPTIONS: ---
 # REQUIREMENTS: ---
@@ -21,7 +21,7 @@
 #===============================================================================
 #
 # add the "-x" option to the shebang line if you want a more verbose output
-# 10.100.24.149
+# 192.168.96.126
 # curl -H "Authorization: Bearer eyJrIjoiVEJ1Yk9aZW41UDh3NDdIaTQwS2UwMEZOQU45REc4RmMiLCJuIjoiYmFja3VwIiwiaWQiOjF9" http://10.100.24.149/grafana/api/dashboards/home
 # bash grafana-dashboard-importer_A.sh -p 192.168.96.126-2021-02-24-18-13/123 -t 192.168.96.126 -k eyJrIjoiWnd2RU1hZDBVM05XZ1RQUVV5ODI0bHFVNndCaW5nZ0giLCJuIjoiQmFja3VwIiwiaWQiOjF9
 #
