@@ -41,6 +41,9 @@ sed -i '/http.port:/s/#//' /etc/elasticsearch/elasticsearch.yml
 ```
 echo 'discovery.type: single-node' >> /etc/elasticsearch/elasticsearch.yml
 
+關閉disable Kibana security warning message告警
+echo 'xpack.security.enabled: false' >> /etc/elasticsearch/elasticsearch.yml
+
 ```
 
 #### 關閉 swapping
