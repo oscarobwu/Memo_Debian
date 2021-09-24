@@ -123,7 +123,15 @@ apt install logstash -y
 #安裝套件
 sudo /usr/share/logstash/bin/logstash-plugin install logstash-filter-dns
 sudo /usr/share/logstash/bin/logstash-plugin install logstash-filter-geoip
+#############
 
+# /usr/share/logstash/bin/logstash-plugin install logstash-codec-sflow
+# /usr/share/logstash/bin/logstash-plugin update logstash-codec-netflow
+# /usr/share/logstash/bin/logstash-plugin update logstash-input-udp
+# /usr/share/logstash/bin/logstash-plugin update logstash-input-tcp
+# /usr/share/logstash/bin/logstash-plugin update logstash-filter-dns
+# /usr/share/logstash/bin/logstash-plugin update logstash-filter-geoip
+# /usr/share/logstash/bin/logstash-plugin update logstash-filter-translate
 ```
 
 ## 安裝 Filebeat
