@@ -135,6 +135,11 @@ sudo /usr/share/logstash/bin/logstash-plugin install logstash-filter-geoip
 # /usr/share/logstash/bin/logstash-plugin update logstash-filter-dns
 # /usr/share/logstash/bin/logstash-plugin update logstash-filter-geoip
 # /usr/share/logstash/bin/logstash-plugin update logstash-filter-translate
+
+# 啟動
+
+systemctl enable --now logstash.service
+
 ```
 
 ## 安裝 Filebeat
