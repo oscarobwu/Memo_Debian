@@ -671,3 +671,34 @@ AllowGroups user
 設定完記得重啟 ssh
 systemctl restart sshd
 ```
+### 增加文件最大數量
+
+```
+# 查看当前系统的 Liunx 文件描述符最大数量
+$ ulimit -n
+65535
+
+如果是 1024，需要設置文件/etc/security/limits.conf，文件數量。改完需要重啟。
+
+root soft nofile 65536
+root hard nofile 65536
+* soft nofile 65536
+* hard nofile 65536
+```
+### 優化內核網絡參數
+##### 配置文件/etc/sysctl.conf 如下，提高了網絡性能。
+```
+net.core.somaxconn = 1024
+net.core.netdev_max_backlog = 5000
+net.core.rmem_max = 16777216
+net.core.wmem_max = 16777216
+net.ipv4.tcp_wmem = 4096 12582912 16777216
+net.ipv4.tcp_rmem = 4096 12582912 16777216
+net.ipv4.tcp_max_syn_backlog = 8096
+net.ipv4.tcp_slow_start_after_idle = 0
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.ip_local_port_range = 10240 65535
+
+性能調優參考 Netflix 如何調優 EC2 實例的性能。
+
+```
