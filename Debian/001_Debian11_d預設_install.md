@@ -851,3 +851,23 @@ net.ipv4.ip_local_port_range = 10240 65535
 性能調優參考 Netflix 如何調優 EC2 實例的性能。
 
 ```
+
+```
+清除 防火牆規則
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -t nat -F
+iptables -t mangle -F
+iptables -F
+iptables -X
+
+ip6tables -P INPUT ACCEPT
+ip6tables -P FORWARD ACCEPT
+ip6tables -P OUTPUT ACCEPT
+ip6tables -t nat -F
+ip6tables -t mangle -F
+ip6tables -F
+ip6tables -X
+
+```
