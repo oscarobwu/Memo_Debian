@@ -35,4 +35,68 @@ tmsh list /sys sshd allow
 tmsh modify /sys sshd allow replace-all-with { 192.168.2.* 192.168.88.250 192.168.88.251}
 tmsh modify /sys httpd allow replace-all-with { 192.168.2.* 192.168.88.250 192.168.88.251}
 save /sys config
+
+使用增加的方式
+tmsh list /sys httpd allow
+
+To modify the existing allowed IP’s or subnets for F5 webui access use the below command.
+             
+tmsh modify /sys httpd allow add { <IP address or IP address range> }
+
+tmsh modify /sys httpd allow add {1.1.1.1}
+
+tmsh modify /sys httpd allow add { 192.167.*.* }
+
+tmsh modify /sys httpd allow add { 192.168.88.* }
+
+tmsh modify /sys httpd allow delete { 192.167.*.* }
+
+設定完畢後一定要存檔
+
+tmsh save /sys config
+
+# 使用更新的方式
+tmsh modify /sys httpd allow replace-all-with { <IP address or IP address range> }
+
+tmsh modify /sys httpd allow replace-all-with { 172.2.0.0/255.255.255.0 }
+OR
+tmsh modify /sys httpd allow replace-all-with { 172.2.0.* }
+OR
+
+tmsh save /sys config
+
+設定完畢後一定要存檔
+
+#############
+使用增加的方式
+tmsh list /sys sshd allow
+
+To modify the existing allowed IP’s or subnets for F5 webui access use the below command.
+             
+tmsh modify /sys sshd allow add { <IP address or IP address range> }
+
+tmsh modify /sys sshd allow add {1.1.1.1}
+
+tmsh modify /sys sshd allow add { 192.167.*.* }
+
+tmsh modify /sys sshd allow add { 192.168.88.* }
+
+tmsh modify /sys sshd allow delete { 192.167.*.* }
+
+設定完畢後一定要存檔
+
+tmsh save /sys config
+
+# 使用更新的方式
+tmsh modify /sys sshd allow replace-all-with { <IP address or IP address range> }
+
+tmsh modify /sys sshd allow replace-all-with { 172.2.0.0/255.255.255.0 }
+OR
+tmsh modify /sys sshd allow replace-all-with { 172.2.0.* }
+OR
+
+tmsh save /sys config
+
+設定完畢後一定要存檔
+
 ```
