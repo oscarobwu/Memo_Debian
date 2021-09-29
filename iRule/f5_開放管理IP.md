@@ -25,3 +25,14 @@ tmsh create net packet-filter Allow_SelfIP_list_2 { action accept order 6 rule "
 # Deny any selfip 
 tmsh create net packet-filter Deny_MGMT_port_host_any { action discard logging enabled order 10 rule "( ( ip proto TCP or ip6 proto TCP ) ) and ( dst host 192.168.88.166 ) and ( dst port 22 or dst port 443 )" vlan MGMT }
 ```
+## 限制 webui 和 ssh 登入
+
+```
+tmsh list /sys httpd allow
+tmsh list /sys sshd allow
+
+
+tmsh modify /sys sshd allow replace-all-with { 192.168.2.* 192.168.88.250 192.168.88.251}
+tmsh modify /sys httpd allow replace-all-with { 192.168.2.* 192.168.88.250 192.168.88.251}
+save /sys config
+```
