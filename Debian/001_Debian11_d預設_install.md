@@ -871,3 +871,9 @@ ip6tables -F
 ip6tables -X
 
 ```
+
+## influxdb 資料保存
+```
+# 修改儲存資料時間
+ALTER RETENTION POLICY "autogen" ON "telegraf" DURATION 40d REPLICATION 1
+```
