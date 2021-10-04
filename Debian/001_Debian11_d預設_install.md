@@ -57,6 +57,8 @@ apt install chrony -y
 apt install libssl-dev libghc-zlib-dev libexpat1-dev gettext unzip -y
 apt install fping graphviz imagemagick mtr-tiny acl tmux -y
 apt install fail2ban -y
+# 稽核指令
+apt install auditd -y
 
 ###apt install vim-gtk -y
 apt install whois rrdtool librrds-perl python3-memcache python3-mysqldb -y
