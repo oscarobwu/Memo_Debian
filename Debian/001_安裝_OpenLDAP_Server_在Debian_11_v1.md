@@ -239,6 +239,8 @@ systemctl status slapd
 
 ```language
 
+cd /etc/openldap/
+
 ldapmodify -Y EXTERNAL -H ldapi:/// -Q
 
 dn: cn=config
@@ -281,6 +283,8 @@ systemctl restart logrotate
 
 ```language
 
+cd /etc/openldap/
+
 slappasswd
 
 New password: ENTER PASSWORD
@@ -318,7 +322,7 @@ olcAccess: to dn.subtree="dc=ldapmaster,dc=kifarunix-demo,dc=com" by dn.subtree=
   by * none
 EOL
 
-ldapadd -Y EXTERNAL -H ldapi:/// -f rootdn.ldif
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/rootdn.ldif
 
 Sample command output;
 
@@ -338,7 +342,7 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout \
 
 chown ldap:ldap /etc/ssl/{ldapserver.crt,ldapserver.key}
 
-cat > tls.ldif << 'EOL'
+cat > /etc/openldap/tls.ldif << 'EOL'
 dn: cn=config
 changetype: modify
 add: olcTLSCACertificateFile
@@ -352,7 +356,7 @@ olcTLSCertificateKeyFile: /etc/ssl/ldapserver.key
 EOL
 
 
-ldapadd -Y EXTERNAL -H ldapi:/// -f tls.ldif
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/tls.ldif
 
 應該出現 :
 
@@ -464,6 +468,8 @@ ldapsearch -Q -LLL -Y EXTERNAL -H ldapi:/// -b cn=config '(olcDatabase={1}mdb)' 
 
 ```language
 
+cd /etc/openldap/
+
 slappasswd
 
 New password: 
@@ -484,7 +490,7 @@ userPassword: {SSHA}51i5ZSBTbCULaS8IwRrLDnrcsrM00czf
 description: Bind DN user for LDAP Operations
 EOL
 
-ldapadd -Y EXTERNAL -H ldapi:/// -f bindDNuser.ldif
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/bindDNuser.ldif
 
 
 
@@ -494,7 +500,7 @@ Enable OpenLDAP Password Policies
 
 ```language
 
-cat > ppolicy.ldif << 'EOL'
+cat > /etc/openldap/ppolicy.ldif << 'EOL'
 dn: cn=ppolicy,cn=schema,cn=config
 objectClass: olcSchemaConfig
 cn: ppolicy
@@ -553,7 +559,7 @@ olcObjectClasses: {1}( 1.3.6.1.4.1.42.2.27.8.2.1 NAME 'pwdPolicy' SUP top AUXI
   $ pwdAllowUserChange $ pwdSafeModify $ pwdMaxRecordedFailure ) )
 EOL
 
-ldapadd -Y EXTERNAL -H ldapi:/// -f ppolicy.ldif
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/ppolicy.ldif
 
 開通防火牆
 
