@@ -612,6 +612,15 @@ root hard nofile 65536
 
 EOF
 
+cat << 'EOF' > /etc/issue
+Debian GNU/Linux 11 \n \l
+
+My IP address: \4 \l
+
+\d \t
+
+EOF
+
 #
 # 網路優化 來自netflex 設定檔
 cat <<'EOF' > /etc/security/limits.conf
