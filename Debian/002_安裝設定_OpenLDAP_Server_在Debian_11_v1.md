@@ -6,9 +6,7 @@
 1. 設定主機名稱正確FQDN
 
 ```
-echo "<IP Address> debian11-0-ldap-01.localdomain.com" | sudo tee -a /etc/hosts
-
-echo "192.168.88.226 debian11-0-ldap-01.localdomain.com" | sudo tee -a /etc/hosts
+echo "192.168.10.10 debian11-0-ldap-01.localdomain.com" | sudo tee -a /etc/hosts
 sudo hostnamectl set-hostname debian11-0-ldap-01.localdomain.com --static
 
 ```
@@ -103,7 +101,7 @@ Re-enter new password:
 
 ```
 $ nano ldapusers.ldif
-dn: uid=jmutai,ou=people,dc=localdomain,dc=com
+dn: uid=oscartai,ou=people,dc=localdomain,dc=com
 objectClass: inetOrgPerson
 objectClass: posixAccount
 objectClass: shadowAccount
@@ -115,6 +113,7 @@ homeDirectory: /home/testuser
 uidNumber: 3000
 gidNumber: 3000
 
+
 ```
 
 #### 套用設定
@@ -123,7 +122,7 @@ gidNumber: 3000
 
 $ ldapadd -x -D cn=admin,dc=localdomain,dc=com -W -f ldapusers.ldif 
 Enter LDAP Password: 
-adding new entry "uid=jmutai,ou=people,dc=localdomain,dc=com"
+adding new entry "uid=oscartai,ou=people,dc=localdomain,dc=com"
 
 
 
@@ -155,4 +154,3 @@ sudo apt -f install
 sudo dpkg -i ldap-account-manager_7.7-1_all.deb
 
 ```
-
