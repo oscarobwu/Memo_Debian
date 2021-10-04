@@ -1,4 +1,4 @@
-#安裝設定_OpenLDAP_Server_在Debian 11 (Bullseye)
+# 安裝設定_OpenLDAP_Server_在Debian 11 (Bullseye)
 
 ##### 002_安裝設定_OpenLDAP_Server_在Debian_11_v1.md
 ----
