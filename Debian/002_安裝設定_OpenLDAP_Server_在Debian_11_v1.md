@@ -6,7 +6,9 @@
 1. 設定主機名稱正確FQDN
 
 ```
-echo "192.168.10.10 debian11-0-ldap-01.localdomain.com" | sudo tee -a /etc/hosts
+echo "<IP Address> debian11-0-ldap-01.localdomain.com" | sudo tee -a /etc/hosts
+
+echo "192.168.88.226 debian11-0-ldap-01.localdomain.com" | sudo tee -a /etc/hosts
 sudo hostnamectl set-hostname debian11-0-ldap-01.localdomain.com --static
 
 ```
