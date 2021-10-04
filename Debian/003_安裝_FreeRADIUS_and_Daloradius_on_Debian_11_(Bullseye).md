@@ -148,7 +148,7 @@ sudo mv /var/www/html/daloradius/library/daloradius.conf.php.sample /var/www/htm
 sudo chown -R www-data:www-data /var/www/html/daloradius/
 sudo chmod 664 /var/www/html/daloradius/library/daloradius.conf.php
 
-sudo vim /var/www/html/daloradius/library/daloradius.conf.php
+sudo vi /var/www/html/daloradius/library/daloradius.conf.php
 
 $configValues['CONFIG_DB_HOST'] = 'localhost';
 $configValues['CONFIG_DB_PORT'] = '3306';
@@ -167,6 +167,41 @@ Step 7: Access daloRADIUS Web Interface
 
 sudo pear install DB
 sudo pear install MDB2
+
+#####################
+ #  sudo pear install DB
+
+WARNING: "pear/DB" is deprecated in favor of "pear/MDB2"
+WARNING: channel "pear.php.net" has updated its protocols, use "pear channel-update pear.php.net" to update
+downloading DB-1.11.0.tgz ...
+Starting to download DB-1.11.0.tgz (132,549 bytes)
+.............................done: 132,549 bytes
+install ok: channel://pear.php.net/DB-1.11.0
+ 16:52:28  root@Debian11-0-FreeRADIUS-01  	  192.168.88.174  ~ 
+ # 
+ 16:52:28  root@Debian11-0-FreeRADIUS-01  	  192.168.88.174  ~ 
+ #  sudo pear install MDB2
+WARNING: channel "pear.php.net" has updated its protocols, use "pear channel-update pear.php.net" to update
+downloading MDB2-2.4.1.tgz ...
+Starting to download MDB2-2.4.1.tgz (121,557 bytes)
+..........................done: 121,557 bytes
+install ok: channel://pear.php.net/MDB2-2.4.1
+MDB2: Optional feature fbsql available (Frontbase SQL driver for MDB2)
+MDB2: Optional feature ibase available (Interbase/Firebird driver for MDB2)
+MDB2: Optional feature mysql available (MySQL driver for MDB2)
+MDB2: Optional feature mysqli available (MySQLi driver for MDB2)
+MDB2: Optional feature mssql available (MS SQL Server driver for MDB2)
+MDB2: Optional feature oci8 available (Oracle driver for MDB2)
+MDB2: Optional feature pgsql available (PostgreSQL driver for MDB2)
+MDB2: Optional feature querysim available (Querysim driver for MDB2)
+MDB2: Optional feature sqlite available (SQLite2 driver for MDB2)
+MDB2: To install optional features use "pear install pear/MDB2#featurename"
+ 16:52:43  root@Debian11-0-FreeRADIUS-01  	  192.168.88.174  ~ 
+ # 
+
+#####################
+
+
 
 http://server_ip_or_hostname/daloradius
 
