@@ -132,9 +132,9 @@ adding new entry "uid=oscartai,ou=people,dc=localdomain,dc=com"
 $ cat ldapgroups.ldif
 dn: cn=oscartai,ou=groups,dc=localdomain,dc=com
 objectClass: posixGroup
-cn: jmutai
+cn: oscartai
 gidNumber: 3000
-memberUid: jmutai
+memberUid: oscartai
 
 $ ldapadd -x -D cn=admin,dc=localdomain,dc=com -W -f ldapgroups.ldif
 Enter LDAP Password: 
