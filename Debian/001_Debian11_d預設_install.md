@@ -888,3 +888,28 @@ ip6tables -X
 # 修改儲存資料時間
 ALTER RETENTION POLICY "autogen" ON "telegraf" DURATION 40d REPLICATION 1
 ```
+
+## 如果遇到 jenkins 還原失敗
+
+```language
+
+
+[ INFO] Restore started at [08/28/15 05:58:06]
+[ INFO] Working into /var/lib/jenkins_restore directory
+[ INFO] A old restore working dir exists, cleaning ...
+[ERROR] Unable to delete /var/lib/jenkins_restore
+
+```
+
+```language
+sudo chmod 777 /var/lib
+... perform restore ...
+sudo chmod 755 /var/lib
+
+```
+
+```language
+sudo mkdir /var/lib/jenkins_restore
+sudo chown jenkins /var/lib/jenkins_restore
+
+```
