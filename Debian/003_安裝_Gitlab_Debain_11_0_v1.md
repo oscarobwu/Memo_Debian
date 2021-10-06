@@ -77,7 +77,31 @@ gitlab-ctl reconfigure
 ### 找root登入密碼
 
 ```
+第一次登入 root的密碼
 cat /etc/gitlab/initial_root_password
+
+
+重設定密碼
+
+root@ct-gitlab ~# gitlab-rails console           
+ Ruby:         ruby 2.7.2p137 (2020-10-01 revision 5445e04352) [x86_64-linux]
+ GitLab:       13.6.3 (857c6c6a6a9) FOSS
+ GitLab Shell: 13.13.0
+ PostgreSQL:   11.9
+--------------------------------------------------------------------------------
+Loading production environment (Rails 6.0.3.3)
+irb(main):001:0> 
+irb(main):002:0> user = User.find_by(username: 'root')
+=> #<User id:1 @root>
+irb(main):003:0> user.password = '**new password**'
+=> "**new password**"
+irb(main):004:0> user.password_confirmation = '**new password**'
+=> "**new password**"
+irb(main):005:0> user.save
+Enqueued ActionMailer::MailDeliveryJob (Job ID: dc1d94bf-bafb-45xx-b2ae-084xx8b820a4) to Sidekiq(mailers) with arguments: "DeviseMailer", "password_change", "deliver_now", {:args=>[#<GlobalID:0x00007f4354xxc600 @uri=#<URI::GID gid://gitlab/User/1>>]}
+=> true
+irb(main):006:0> exit
+root@ct-gitlab ~# 
 
 
 ```
