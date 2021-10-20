@@ -153,7 +153,7 @@ $ apt install build-essential libmysqlclient-dev imagemagick libmagickwand-dev
 ```
 Go to Redmine’s official website and download the latest stable release of the application. At the time of this article being published, the latest version of Redmine is version 4.0.5.
 ```shell
-$ wget https://www.redmine.org/releases/redmine-4.2.3.tar.gz -o /opt/redmine.zip
+$ wget --no-check-certificate https://www.redmine.org/releases/redmine-4.2.3.tar.gz -o /opt/redmine.zip
 ```
 Once the `zip` archive is downloaded, unpack it to the `/opt` directory on your server:
 
