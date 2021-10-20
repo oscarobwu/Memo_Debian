@@ -89,6 +89,10 @@ mysql-username: guacamole_user
 mysql-password: passw0rd
 ```
 ```
+vi /etc/tomcat9/server.xml
+
+8080 ----> 8083
+
 systemctl restart tomcat9
 
 ```
