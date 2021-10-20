@@ -913,3 +913,21 @@ sudo mkdir /var/lib/jenkins_restore
 sudo chown jenkins /var/lib/jenkins_restore
 
 ```
+
+```
+<!DOCTYPE html>
+<html>
+<head>
+   <!-- HTML meta refresh URL redirection -->
+   <meta http-equiv="refresh"
+   content="5; url=/jenkins">
+</head>
+<body>
+   <p>The page has moved to:<br>
+     <a href="/jenkins">jenkins this page</a></p><br>
+     <a href="/gitlab">GitLab this page</a></p>
+     <a href="/guacamole">Guacamole Remote</a></p>
+     <a href="/grafana">Grafan Monitor Dashboard</a></p>
+</body>
+</html>
+```
