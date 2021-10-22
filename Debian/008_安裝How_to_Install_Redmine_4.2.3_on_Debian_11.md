@@ -269,3 +269,96 @@ location ^~ /redmine {
 }
 
 ```
+
+## 7. 設定 Apache Passenger
+
+sudo vi /etc/apache2/mods-available/passenger.conf
+
+加入
+```language
+<ifmodule mod_passenger.c>
+  PassengerDefaultUser www-data # 加入這一行
+  PassengerRoot /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini
+  PassengerDefaultRuby /usr/bin/ruby
+</ifmodule>
+
+```
+### 接著建立Redmine軟連結
+
+```language
+sudo ln -s /usr/share/redmine/public /var/www/html/redmine
+
+```
+
+## 8. 設定存取的 IP 或 Domain Name
+
+
+### 8.1 以 IP 存取Redmine
+這方法適用於要用IP來存取建置好的Redmine網站，比較簡單的例子就是在本地端存取，例如：192.168.0.45，欲以這種方式存取的話，可依下列步驟進行：
+
+## ① 修改000-default.conf檔
+```language
+sudo vi /etc/apache2/sites-available/000-default.conf
+```
+
+
+
+### 在該檔中加入以下資訊：
+
+```language
+<Directory /var/www/html/redmine>
+    RailsBaseURI /redmine
+    PassengerResolveSymlinksInDocumentRoot on
+</Directory>
+
+```
+
+
+## ② 建立Gemfile.lock並設定檔案的擁有者權限
+```language
+sudo touch /usr/share/redmine/Gemfile.lock
+sudo chown www-data:www-data /usr/share/redmine/Gemfile.lock
+
+sudo a2enmod passenger
+sudo systemctl restart apache2
+```
+
+
+### 可用http://your_ip/redmine的方式來存取Redmine (注意網址後面有加redmine)，預設帳密是admin / admin，第一次登入後會要求變更密碼
+
+
+```language
+<VirtualHost *:80>
+
+    ...
+
+    # BookStack Configuration
+    Alias "/bookstack" "/var/www/bookstack/public"
+
+    <Directory "/var/www/bookstack/public">
+      Options FollowSymlinks
+      AllowOverride None
+      Require all granted
+
+      RewriteEngine On
+      # Redirect Trailing Slashes If Not A Folder...
+      RewriteCond %{REQUEST_FILENAME} !-d
+      RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+      # Handle Front Controller...
+      RewriteCond %{REQUEST_FILENAME} !-d
+      RewriteCond %{REQUEST_FILENAME} !-f
+      RewriteRule ^ index.php [L]
+    </Directory>
+
+
+    <Directory "/var/www/bookstack">
+      AllowOverride None
+      Require all denied
+    </Directory>
+    # End BookStack Configuration
+
+    ...
+
+</VirtualHost>
+```
