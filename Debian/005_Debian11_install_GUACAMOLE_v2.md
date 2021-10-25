@@ -75,7 +75,23 @@ cp mysql-connector-java-8.0.26/mysql-connector-java-8.0.26.jar /etc/guacamole/li
 vim /etc/guacamole/guacamole.properties
 
 ```
-
+RO
+```
+cat <<EOF > /etc/guacamole/guacamole.properties
+# Hostname and port of guacamole proxy
+guacd-hostname: localhost
+guacd-port:     4822
+# MySQL properties
+mysql-hostname: localhost
+mysql-port: 3306
+mysql-database: guacamole_db
+mysql-username: guacamole_user
+mysql-password: passw0rd
+mysql-default-max-connections-per-user: 0
+mysql-default-max-group-connections-per-user: 0
+EOF
+```
+呈現
 ```
 # Hostname and Guacamole server port
 guacd-hostname: localhost
