@@ -217,6 +217,7 @@ source /etc/network/interfaces.d/*
 auto lo
 iface lo inet loopback
 # The primary network interface
+auto ens192
 allow-hotplug ens192
 iface ens192 inet dhcp
 #iface ens192 inet static
