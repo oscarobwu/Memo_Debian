@@ -5,12 +5,13 @@
 ```
 # ###001_Debian11_c預設_install.md
 #更新安裝python 3.9.7
+# 20211125 更新使用python 3.10.0
 #
 # Run all commands logged in as root or "sudo su - "
 # Start from a base Debian 10 install and update it to current.
 # Add backports repo so that we can install odbc-mariadb.
 fname = $BASH_SOURCE
-#安裝3.9.7
+#安裝3.10.0
 
 apt update && apt upgrade -y
 
