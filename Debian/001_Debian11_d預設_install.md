@@ -218,7 +218,7 @@ auto lo
 iface lo inet loopback
 # The primary network interface
 auto ens192
-allow-hotplug ens192
+#allow-hotplug ens192
 iface ens192 inet dhcp
 #iface ens192 inet static
 #address 192.168.96.211
