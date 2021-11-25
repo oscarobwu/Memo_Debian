@@ -239,7 +239,7 @@ sed -i 's/# set bell-style none/set bell-style none/g' /etc/inputrc
 # 關閉 ipv6
 #sed -i 's/#net.ipv6.conf.all.disable_ipv6 = 1/net.ipv6.conf.all.disable_ipv6 = 1/g' /etc/sysctl.conf
 #
-/usr/local/bin/python3.9 -m pip install --upgrade pip
+/usr/local/bin/python3.10 -m pip install --upgrade pip
 #
 pip install Stats
 
@@ -551,8 +551,8 @@ chmod +x /etc/rc.local
 systemctl start rc-local
 #
 cd ~
-rm Python-3.9.7.tgz
-rm -R Python-3.9.7
+rm Python-3.10.0.tgz
+rm -R Python-3.10.0
 
 #新增 檔案系統優化
 cat <<'EOF' > /etc/security/limits.conf
