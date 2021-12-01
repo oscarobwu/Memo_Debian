@@ -1,10 +1,11 @@
 # 換網卡和apache IP
 
 ```
+換網路卡
 sed -i 's/10.1.20/192.168.88/g' /etc/network/interfaces
 
-換網路卡
 
+換apache檔案
 sed -i 's/10.1.20/192.168.88/g' /etc/apache2/sites-available/000-default
 
 
@@ -23,4 +24,5 @@ sed -i 's/10.1.20/192.168.88/g' /etc/apache2/sites-enabled/hackazon.conf
 sed -i 's/10.1.20/192.168.88/g' /etc/apache2/sites-enabled/csrf.conf
 sed -i 's/10.1.20/192.168.88/g' /etc/apache2/sites-enabled/demobank.conf
 sed -i 's/10.1.20/192.168.88/g' /etc/apache2/sites-enabled/bank.conf
+
 ```
