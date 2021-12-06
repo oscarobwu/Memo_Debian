@@ -554,7 +554,9 @@ systemctl start rc-local
 cd ~
 rm Python-3.10.0.tgz
 rm -R Python-3.10.0
-
+#
+rm -R vim-temp
+#
 #新增 檔案系統優化
 cat <<'EOF' > /etc/security/limits.conf
 # /etc/security/limits.conf
