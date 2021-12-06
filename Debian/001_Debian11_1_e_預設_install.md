@@ -728,6 +728,10 @@ trap finish EXIT
 vi install plug
 :PlugInstall
 #####################################
+重起啟動  YouCompleteme
+
+~/.vim/plugged/YouCompleteMe/install.py --clang-completer
+#####################################
 
 cat /etc/issue
 
