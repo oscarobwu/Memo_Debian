@@ -90,9 +90,13 @@ iptables -A INPUT -j STATE0
  
 ####### 初始化
 # 清除腳本
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
 iptables -X
 iptables -F
 # 預設 名稱
+iptables -X INTO-P1
 iptables -X INTO-P2
 iptables -X INTO-P3
 iptables -X INTO-P4
@@ -112,6 +116,10 @@ iptables -A INPUT -p tcp --dport 22 -m state --state RELATED -j ACCEPT
 ####### Creation des chaines puis ajout des regles
 # 創建鏈然後添加規則
 #####################
+iptables -N INTO-P1
+iptables -A INTO-P1 -m recent --update --name P1
+iptables -A INTO-P1 -j LOG --log-prefix "KNOCKING-INTO P1: " --log-level 4
+
 iptables -N INTO-P2
 iptables -A INTO-P2 -m recent --name P1 --remove
 iptables -A INTO-P2 -m recent --name P2 --set
@@ -127,13 +135,13 @@ iptables -A INTO-P4 -m recent --name P3 --remove
 iptables -A INTO-P4 -m recent --name P4 --set
 iptables -A INTO-P4 -j LOG --log-prefix "KNOCKING-INTO P4: "
  
-iptables -A INPUT -m recent --update --name P1 -j LOG --log-prefix "KNOCKING-INTO P1: "
+#iptables -A INPUT -m recent --update --name P1 -j LOG --log-prefix "KNOCKING-INTO P1: " --log-level 4
  
 ####### 密碼的定義與到期前每個階段的時間限制。
 #######
 # 建立 敲門port 使用
 # 等 10秒敲門
-iptables -A INPUT -p tcp --dport 45678 -m recent --name P1 --set
+iptables -A INPUT -p tcp --dport 45678 -m recent --name P1 --set -j INTO-P1
 iptables -A INPUT -p tcp --dport 34567 -m recent --rcheck --seconds 10 --name P1 -j INTO-P2
 iptables -A INPUT -p tcp --dport 23456 -m recent --rcheck --seconds 10 --name P2 -j INTO-P3
 iptables -A INPUT -p tcp --dport 12345 -m recent --rcheck --seconds 10 --name P3 -j INTO-P4
