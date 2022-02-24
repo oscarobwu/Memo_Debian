@@ -104,6 +104,14 @@ host_name,mgmt_ip,description_text,mgmt_url,administrator_user,soft_version,hard
 SELECT 'LAB-VPN08-PRD-DC01.lab.com','172.16.50.204','','','','','','','','','DC08',CURTiME(),NOW() FROM DUAL 
 WHERE 'LAB-VPN08-PRD-DC01.lab.com' NOT IN (SELECT host_name FROM f5_host_list);
 
+# 比對兩個欄位
+
+INSERT INTO f5_host_list (
+host_name,mgmt_ip,description_text,mgmt_url,administrator_user,soft_version,hardware_version,hardware_key,module_list,master_key,location_dc,create_time,update_time
+) 
+SELECT 'LAB-VPN08-PRD-DC01.lab.com','172.16.50.204','','','','','','','','','DC08',CURTiME(),NOW() FROM DUAL WHERE NOT EXISTS(
+SELECT host_name FROM f5_host_list WHERE host_name = 'LAB-VPN08-PRD-DC01.lab.com' AND mgmt_ip = '172.16.50.204');
+
 
 ```
 
