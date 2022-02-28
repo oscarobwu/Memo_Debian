@@ -692,7 +692,10 @@ cat <<'EOF' > /etc/security/limits.conf
 # Log Martian Packets
 #net.ipv4.conf.all.log_martians = 1
 #
-
+root soft nofile 65536
+root hard nofile 65536
+* soft nofile 65536
+* hard nofile 65536
 ###################################################################
 # Magic system request Key
 # 0=disable, 1=enable all, >1 bitmask of sysrq functions
