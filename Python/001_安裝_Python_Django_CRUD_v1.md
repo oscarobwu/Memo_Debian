@@ -51,6 +51,11 @@ DATABASES = {
     }  
 }  
 
+##### 設定中文
+LANGUAGE_CODE = 'zh-hant'
+TIME_ZONE = 'Asia/Taipei'
+
+#####
 
 # 編輯 使用 pymysql
 vi crudexample/__init__.py
