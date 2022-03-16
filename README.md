@@ -124,4 +124,7 @@ npm install mysql --save
 # 確認套件
 # ls node_modules/
 ```
+
+![alt tag](http://i.imgur.com/CWDVlnj.jpg)
+
 ![alt tag](https://photos.google.com/share/AF1QipN2w9kxsNBuAfBP0w6RSPtNx-5-HHbueGH3KsdRqgjKzQx8t-OrX0Gx9ZEbw9YONA/photo/AF1QipPIinIig-xz83jS-YbSC0tG9NLTqJP0SW0NRoZr?key=XzF0TkhFVElVXzA0LUdfSWtLbC13akZLWEZtZlR3)
