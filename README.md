@@ -125,3 +125,4 @@ npm install mysql --save
 # ls node_modules/
 ```
 
+![ppp](https://github.com/oscarobwu/Memo_Debian/ansible.png)
