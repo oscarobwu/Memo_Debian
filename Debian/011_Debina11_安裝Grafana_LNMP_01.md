@@ -692,7 +692,6 @@ cd /opt/monitor/prometheus/monitor_config/dmp
     group: "monitor-server"
 
 ```
-```
 
 ### Grafana 安裝
 
