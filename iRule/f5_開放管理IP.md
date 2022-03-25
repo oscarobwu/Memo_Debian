@@ -99,4 +99,15 @@ tmsh save /sys config
 
 設定完畢後一定要存檔
 
+
+when ACCESS_SESSION_STARTED { 
+    ACCESS::session data set session.custom.httphost [HTTP::host] 
+}
+
+
+&&
+
+
+expr { [mcget {session.logon.last.username}] == "username" && [mcget {session.custom.httphost}] == "portal.test.com"}
+
 ```
