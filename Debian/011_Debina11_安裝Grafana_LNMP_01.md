@@ -806,6 +806,8 @@ mkdir /etc/nginx/ssl
 
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -subj "/C=TW/ST=Taiwan/L=Taipei/O=MongoDB/OU=IT/CN=mylocaldomain.com/emailAddress=admin@mylocaldomain.com"
 
+cp /etc/nginx/sites-available/default.conf ~/
+
 
 ###############
 server {
@@ -914,5 +916,416 @@ server {
 
 
 ###############
+
+重新啟動 nginx 並 設定開機啟動
+
+systemctl restart nginx 
+systemctl enable nginx 
+
+```
+
+
+### 設定 F5 SNMP telegraf to prometheus
+
+```
+# 建議一台使用一個台設定檔 一台使用一個port
+#####################################################
+#
+# Check on status of snmp 
+#
+#####################################################
+
+[[inputs.snmp]]
+  name_prefix = "execf5_"
+  #agents = [ "192.168.88.60", "xxx.xxx.xxx.xx2", "xxx.xxx.xxx.xx3" ]
+  agents = [ "192.168.88.166" ]
+  version = 2
+  community = "public"
+  interval = "10s"
+  timeout = "10s"
+  retries = 3
+  name = "F5_system"
+
+  [[inputs.snmp.field]]
+    name = "hostname"
+    oid = "RFC1213-MIB::sysName.0"
+    is_tag = true
+  [[inputs.snmp.field]]
+    name = "F5_uptime"
+    oid = "1.3.6.1.4.1.3375.2.1.6.6.0"
+  [[inputs.snmp.field]]
+    name = "F5_httpRequests"
+    oid = "1.3.6.1.4.1.3375.2.1.1.2.1.56.0"
+  [[inputs.snmp.field]]
+    name = "F5_client_connections"
+    oid = "1.3.6.1.4.1.3375.2.1.1.2.1.8.0"
+  [[inputs.snmp.field]]
+    name = "F5_client_bytes_in"
+    oid = "1.3.6.1.4.1.3375.2.1.1.2.1.60.0"
+  [[inputs.snmp.field]]
+    name = "F5_Total_Connections"
+    oid = "1.3.6.1.4.1.3375.2.1.1.2.1.8.0"
+  [[inputs.snmp.field]]
+    name = "F5_New_Connects"
+    oid = "1.3.6.1.4.1.3375.2.1.1.2.12.8.0"
+  [[inputs.snmp.field]]
+    name = "F5_New_Accepts"
+    oid = "1.3.6.1.4.1.3375.2.1.1.2.12.6.0"
+  [[inputs.snmp.field]]
+    name = "F5_Temperature"
+    oid = "1.3.6.1.4.1.3375.2.1.3.2.3.2.1.2.1"
+  [[inputs.snmp.field]]
+    name = "F5_Global_HTTP_Responses_2xx"
+    oid = "F5-BIGIP-SYSTEM-MIB::sysHttpStatResp2xxCnt.0"
+  [[inputs.snmp.field]]
+    name = "F5_Global_HTTP_Responses_3xx"
+    oid = "F5-BIGIP-SYSTEM-MIB::sysHttpStatResp3xxCnt.0"
+  [[inputs.snmp.field]]
+    name = "F5_Global_HTTP_Responses_4xx"
+    oid = "F5-BIGIP-SYSTEM-MIB::sysHttpStatResp4xxCnt.0"
+  [[inputs.snmp.field]]
+    name = "F5_Global_HTTP_Responses_5xx"
+    oid = "F5-BIGIP-SYSTEM-MIB::sysHttpStatResp5xxCnt.0"
+
+  [[inputs.snmp.field]]
+    name = "F5_Device_status"
+    oid = "F5-BIGIP-SYSTEM-MIB::sysCmFailoverStatusId.0"
+
+ [[inputs.snmp.field]]
+    name = "F5_Synchronization_status_color"
+    oid = "F5-BIGIP-SYSTEM-MIB::sysCmSyncStatusColor.0"
+
+ [[inputs.snmp.table]]
+    name = "F5_CPU"
+    oid = "F5-BIGIP-SYSTEM-MIB::sysMultiHostCpuTable"
+    inherit_tags = [ "hostname" ]
+
+ [[inputs.snmp.table]]
+    name = "F5_Memory_Usage"
+    oid = "F5-BIGIP-SYSTEM-MIB::sysMultiHostTable"
+    inherit_tags = [ "hostname" ]
+	
+ [[inputs.snmp.table]]
+    name = "F5_TMM_Memory_Usage"
+    oid = "F5-BIGIP-SYSTEM-MIB::sysTmmPagesStatTable"
+    inherit_tags = [ "hostname" ]
+
+ [[inputs.snmp.table]]
+   name = "F5_PoolStatus"
+   oid = "F5-BIGIP-LOCAL-MIB::ltmPoolStatTable"
+   inherit_tags = [ "hostname" ]
+
+ [[inputs.snmp.table]]
+   name = "F5_ClientSSLStatus"
+   oid = "F5-BIGIP-LOCAL-MIB::ltmClientSslStatTable"
+   inherit_tags = [ "hostname" ]
+
+ [[inputs.snmp.table]]
+   name = "F5_Fan"
+   oid = "F5-BIGIP-SYSTEM-MIB::sysChassisFanTable"
+   inherit_tags = [ "hostname" ]
+
+ [[inputs.snmp.table]]
+   name = "F5_Temperature"
+   oid = "F5-BIGIP-SYSTEM-MIB::sysChassisTempTable"
+   inherit_tags = [ "hostname" ]
+
+ [[inputs.snmp.table]]
+   name = "F5_VirtualStatus"
+   oid = "F5-BIGIP-LOCAL-MIB::ltmVirtualServStatTable"
+   inherit_tags = [ "hostname" ]
+
+ [[inputs.snmp.table]]
+    name = "F5_Nodes_Status"
+    oid =  "F5-BIGIP-LOCAL-MIB::ltmNodeAddrStatTable"
+    inherit_tags = [ "hostname" ]
+
+ [[inputs.snmp.table]]
+    name = "F5_Vlan_Status"
+    oid =  "F5-BIGIP-SYSTEM-MIB::sysVlanStatTable"
+    inherit_tags = [ "hostname" ]
+
+ [[inputs.snmp.table]]
+    name = "F5_DiskTable_Status"
+    oid =  "F5-BIGIP-SYSTEM-MIB:sysHostDiskTable"
+    inherit_tags = [ "hostname" ]
+
+ [[inputs.snmp.table]]
+    name = "F5_PoolMembers_Status"
+    oid =  "F5-BIGIP-LOCAL-MIB::ltmPoolMemberStatTable"
+    inherit_tags = [ "hostname" ]
+
+ [[inputs.snmp.table]]
+    name = "F5_PoolUpDowm_Status"
+    oid =  "F5-BIGIP-LOCAL-MIB::ltmPoolMemberTable"
+    inherit_tags = [ "hostname" ]
+###############################################################################
+# SSLVPN APM module #
+###############################################################################
+
+[[inputs.snmp.table]]
+name = "F5_APM_IP_List"
+oid = "F5-BIGIP-APM-MIB::apmLeasepoolStatTable"
+inherit_tags = [ "hostname" ]
+
+[[inputs.snmp.table]]
+name = "F5_APM_Pauser_List"
+oid = "F5-BIGIP-APM-MIB::apmPaStatTable"
+inherit_tags = [ "hostname" ]
+
+[[inputs.snmp.table]]
+name = "F5_APM_ACL_List"
+oid = "F5-BIGIP-APM-MIB::apmAclStatTable"
+inherit_tags = [ "hostname" ]
+
+###############################################################################
+# SSLVPN #
+###############################################################################
+  #####################################################
+  #
+  # Gather Interface Statistics via SNMP Start
+  #
+  #####################################################
+
+  # IF-MIB::ifTable contains counters on input and output traffic as well as errors and discards.
+  [[inputs.snmp.table]]
+    name = "F5_interface"
+    inherit_tags = [ "hostname" ]
+    oid = "IF-MIB::ifTable"
+
+    # Interface tag - used to identify interface in metrics database
+    [[inputs.snmp.table.field]]
+      name = "ifDescr"
+      oid = "IF-MIB::ifDescr"
+      is_tag = true
+
+  # IF-MIB::ifXTable contains newer High Capacity (HC) counters that do not overflow as fast for a few of the ifTable counters
+  [[inputs.snmp.table]]
+    name = "F5_interface"
+    inherit_tags = [ "hostname" ]
+    oid = "IF-MIB::ifXTable"
+
+    # Interface tag - used to identify interface in metrics database
+    [[inputs.snmp.table.field]]
+      name = "ifDescr"
+      oid = "IF-MIB::ifDescr"
+      is_tag = true
+
+  # EtherLike-MIB::dot3StatsTable contains detailed ethernet-level information about what kind of errors have been logged on an interface (such as FCS error, frame too long, etc)
+  [[inputs.snmp.table]]
+    name = "F5_interface"
+    inherit_tags = [ "hostname" ]
+    oid = "EtherLike-MIB::dot3StatsTable"
+
+    # Interface tag - used to identify interface in metrics database
+    [[inputs.snmp.table.field]]
+      name = "ifDescr"
+      oid = "IF-MIB::ifDescr"
+      is_tag = true
+
+
+#####################################################
+#
+# Export Information to Prometheus
+#
+#####################################################
+[[outputs.prometheus_client]]
+  listen = ":9301"
+  metric_version = 2
+  
+##################
+
+[root@bigdata3 prometheus]# mkdir /opt/monitor/prometheus/monitor_config/
+[root@bigdata3 prometheus]# mkdir /opt/monitor/prometheus/monitor_config/dmp
+[root@bigdata3 prometheus]# mkdir /opt/monitor/prometheus/monitor_config/xl
+[root@bigdata3 prometheus]# mkdir /opt/monitor/prometheus/monitor_config/IDC-01-F5-LTM-Group
+[root@bigdata3 prometheus]# mkdir /opt/monitor/prometheus/monitor_config/f5_apm
+[root@bigdata3 prometheus]# mkdir /opt/monitor/prometheus/monitor_config/f5_gtm
+[root@bigdata3 prometheus]# ls /opt/monitor/prometheus/monitor_config/
+dmp  xl
+
+cd /opt/monitor/prometheus/monitor_config/IDC-01-F5-LTM-Group
+[root@bigdata3 dmp]# cat ltm01_192.168.1.5_9161.yml 
+- targets: [ "127.0.0.1：9301" ]
+  labels:   # 標籤
+    group: "F5-LTM"
+
+
+
+#################
+# 調整 prometheus 設定檔
+# 因為使用 * 所以自動會更新
+# 
+[root@bigdata3 prometheus]# cat  prometheus.yml
+# my global config
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets: ['192.168.1.5:9093']        # alertmanagers所在地址
+      # - alertmanager:9093
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+#################rules#############################
+ - "/opt/monitor/prometheus/rules/hosts/*.yml" # 告警规则存放目录
+#################rules#############################
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+    static_configs:
+    - targets: ['192.168.1.5:9090']          #Prometheus安装机器地址
+#################   hosts  #############################
+  - job_name: 'A-getway'	   # 标签用于区分各个监控项目的机器
+    file_sd_configs:
+    - files: ['/opt/monitor/prometheus/monitor-config/A-getway/*.yml']   # 监控dmp集群的机器配置放置目录
+      refresh_interval: 5s
+	  
+  - job_name: 'B-getway'
+    file_sd_configs:
+    - files: ['/opt/monitor/prometheus/monitor-config/B-getway/*.yml']
+      refresh_interval:    5s
+#################   hosts   #############################
+#################   F5-LTM  #############################
+  - job_name: 'IDC-01-F5-LTM-Group'	   # 标签用于区分各个监控项目的机器 標籤用於區分各個監控項目的機器
+    file_sd_configs:
+    - files: ['/opt/monitor/prometheus/monitor-config/IDC-01-F5-LTM-Group/*.yml']   # 监控F5-LTM集群的机器配置放置目录
+      refresh_interval: 5s
+#################hosts#############################
+
+
+################################
+# 其他範例
+scrape_configs:
+  - job_name: prometheus
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['127.0.0.1:9090']
+      - targets: ['127.0.0.1:9100'] # 這裡開始增加的監控資訊
+        labels:
+          group: 'local-node-exporter'
+##################################
+```
+
+### Prometheus監控（Rules篇） Alertmanager整合
+
+```
+alerting:
+  alert_relabel_configs:
+    [ - <relabel_config> ... ]
+  alertmanagers:
+    [ - <alertmanager_config> ... ]
+# alertmanagers 為 alertmanager_config 陣列，
+
+# 設定範例
+
+alerting:
+  alert_relabel_configs: # 動態修改 alert 屬性的規則配置。
+    - source_labels: [dc] 
+      regex: (.+)\d+
+      target_label: dc1
+  alertmanagers:
+    - static_configs:
+        - targets: ['127.0.0.1:9093'] # 單例項配置
+        #- targets: ['172.31.10.167:19093','172.31.10.167:29093','172.31.10.167:39093'] # 叢集配置
+  - job_name: 'Alertmanager'
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+    static_configs:
+    - targets: ['localhost:19093']
+
+###################################
+上面的配置中的 alert_relabel_configs是指警報重新標記在傳送到Alertmanager之前應用於警報。它具有與目標重新標記相同的配置格式和操作，外部標籤標記後應用警報重新標記，主要是針對叢集配置。
+
+這個設定的用途是確保具有不同外部label的HA對Prometheus服務端傳送相同的警報資訊。
+
+Alertmanager 可以通過 static_configs 引數靜態配置，也可以使用其中一種支援的服務發現機制動態發現，我們上面的配置是靜態的單例項，針對叢集HA配置，後面會講。
+
+此外，relabel_configs 允許從發現的實體中選擇 Alertmanager，並對使用的API路徑提供高階修改，該路徑通過 __alerts_path__ 標籤公開。
+
+完成以上配置後，重啟Prometheus服務，用以載入生效，也可以使用前文說過的熱載入功能，使其配置生效。然後通過瀏覽器，訪問 http://192.168.1.220:19090/alerts 就可以看 inactive pending firing 三個狀態，沒有警報資訊是因為我們還沒有配置警報規則 rules。
+
+https://www.gushiciku.cn/pl/p38S/zh-tw
+
+
+ALERT memory_high
+  IF prometheus_local_storage_memory_series >= 0
+  FOR 15s
+  ANNOTATIONS {
+    summary = "Prometheus using more memory than it should {{ $labels.instance }}",
+    description = "{{ $labels.instance }} has lots of memory man (current value: {{ $value }}s)",
+  }
+
+####
+  alert.rules: |-
+    ## alert.rules ##
+    #
+    # CPU Alerts
+    #
+    ALERT HighCPU
+      IF (100 - (avg(irate(node_cpu{job="kubernetes-service-endpoints",mode="idle"}[1m])) BY (instance) * 100)) > 80
+      FOR 10m
+      ANNOTATIONS {
+        summary = "High CPU Usage",
+        description = "This machine  has really high CPU usage for over 10m",
+      }
+    #
+    # DNS Lookup failures
+    #
+    ALERT DNSLookupFailureFromPrometheus
+      IF prometheus_dns_sd_lookup_failures_total > 5
+      FOR 1m
+      LABELS { service = "frontend" }
+      ANNOTATIONS {
+        summary = "Prometheus reported over 5 DNS lookup failure",
+        description = "The prometheus unit reported that it failed to query the DNS.  Look at the kube-dns to see if it is having any problems",
+      }
+	  
+####
+groups:
+- name: example
+  rules:
+
+  # Alert for any instance that is unreachable for >5 minutes.
+  - alert: InstanceDown
+    expr: up == 0
+    for: 5m
+    labels:
+      severity: page
+    annotations:
+      summary: "Instance {{ $labels.instance }} down"
+      description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
+
+  # Alert for any instance that has a median request latency >1s.
+  - alert: APIHighRequestLatency
+    expr: api_http_request_latencies_second{quantile="0.5"} > 1
+    for: 10m
+    annotations:
+      summary: "High request latency on {{ $labels.instance }}"
+      description: "{{ $labels.instance }} has a median request latency above 1s (current value: {{ $value }}s)"
+	  
+	  
+	  
+groups:
+- name: sample_alert
+  rules:
+  - alert: AlertTest
+    expr: node_filesystem_avail_bytes{mountpoint="/"} < 8589934592
+    for: 3m
+    labels:
+      severity: test
+      test_type: SampleAlert
+    annotations:
+      summary: sample_alert
+
 
 ```
