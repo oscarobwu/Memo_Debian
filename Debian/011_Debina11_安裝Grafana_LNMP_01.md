@@ -1326,5 +1326,27 @@ groups:
     annotations:
       summary: sample_alert
 
+###################
+config:
+  global:
+    slack_api_url: SLACK_HOOK_URL  // 置換成自己設定好的 slack hook url
+  route:
+    group_by: ['alertname', 'datacenter', 'app', 'job']
+    receiver: 'slack-notifications'
+  receivers:
+    - name: 'slack-notifications'
+      slack_configs:
+      - channel: '#k8s-alertmanager'
+         text: '{{ template "slack.k8sbridge.txt" . }}'
+
+最後那行是說 text 要套用指定的 template，所以同樣在 values.yaml 設定 template 的部分
+templates:
+  - '*.tmpl'
+這兩行是告訴 alertmanager 要 include 預設路徑下的所有 .tmpl 檔案
+然後把後面 templatesFiles 那一大段都 uncomment，只修改 define 的 tempalte name，要對應前面設定的 text 裡的 template name，例如:
+  templateFiles:
+    template_1.tmpl: |-
+        {{ define "cluster" }}{{ .ExternalURL | reReplaceAll ".*alertmanager\\.(.*)" "$1" }}{{ end }}
+        {{ define "slack.k8sbridge.tet" }}
 
 ```
