@@ -921,6 +921,23 @@ server {
 systemctl restart nginx 
 systemctl enable nginx 
 
+touch /var/www/html/phpinfo.php && echo '<?php phpinfo(); ?>' >> /var/www/html/phpinfo.php
+
+vi /var/www/html/index.html
+<!DOCTYPE html>
+<html>
+<head>
+   <!-- HTML meta refresh URL redirection -->
+   <meta http-equiv="refresh"
+   content="0; url=/grafana">
+</head>
+<body>
+   <p>The page has moved to:
+   <a href="/grafana">this page</a></p>
+</body>
+</html>
+
+
 ```
 
 
