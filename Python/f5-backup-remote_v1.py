@@ -14,7 +14,7 @@ from urllib3.exceptions import InsecureRequestWarning
 修改為 jenkins使用
 指令方式 : f5-backup-remote_v1.py --hostname 192.168.88.198 --f5username backup --f5password xxxxxxxxx
 
-備份名稱為 : OBS-VPN02-PRD-DC08_192.168.88.198_2022-04-08-102249.ucs
+備份名稱為 : hostname_xxx.xxx.xxx.xxx_2022-04-08-102249.ucs
 '''
 # Root CA for SSL verification
 ROOTCA = ''
