@@ -31,8 +31,8 @@ when HTTP_REQUEST {
 	} 
 	if { $denied } { 
 	    # denied = 1 
-		set registerbusinessMP "Not Authorised! Contact AdministratorNot Authorised! Contact Administrator...\r\n"
-		append registerbusinessMP "\r\n"
+        set registerbusinessMP "Not Authorised! Contact AdministratorNot Authorised! Contact Administrator...\r\n"
+        append registerbusinessMP "\r\n"
         append registerbusinessMP "\r\n"
         append registerbusinessMP "\r\n"
         append registerbusinessMP "\r\n"
@@ -49,7 +49,7 @@ when HTTP_REQUEST {
         append registerbusinessMP "\r\n"
         append registerbusinessMP "\r\n"
         append registerbusinessMP "\r\n"
-		HTTP::respond 200 -version 1.1 content $registerbusinessMP Content-Type "text/html; charset=utf-8" Strict-Transport-Security "16070400" Connection "close"   
+        HTTP::respond 200 -version 1.1 content $registerbusinessMP Content-Type "text/html; charset=utf-8" Strict-Transport-Security "16070400" Connection "close"   
 	} else {
 	    # denied = 0
 	    #pool POOL_443
