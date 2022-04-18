@@ -510,6 +510,9 @@ Restart=always
 WantedBy=multi-user.target
 EOF
 
+# 確認是否要加 以空間來做retention
+--storage.tsdb.retention.size=2TB 
+#
 # 修改權限
 
 for i in rules rules.d files_sd; do sudo chown -R prometheus:prometheus /etc/prometheus/${i}; done
