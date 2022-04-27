@@ -50,3 +50,5 @@ java -jar jenkins-cli.jar -s http://192.168.37.131:8080/ get-job myjob > myjob.x
 java -jar jenkins-cli.jar -s http://192.168.37.131:8080/ get-job myjob < myjob.xml
 
 ```
+
+![jenkins_auth_access_1](https://github.com/oscarobwu/Memo_Debian/raw/main/jenkins/images/jenkins_auth_access_1.png)
