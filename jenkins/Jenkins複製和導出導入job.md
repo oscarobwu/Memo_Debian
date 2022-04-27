@@ -52,3 +52,19 @@ java -jar jenkins-cli.jar -s http://192.168.37.131:8080/ get-job myjob < myjob.x
 ```
 
 ![jenkins_auth_access_1](https://github.com/oscarobwu/Memo_Debian/raw/main/jenkins/images/jenkins_auth_access_1.png)
+
+#####
+
+![jenkins_auth_access_2](https://github.com/oscarobwu/Memo_Debian/raw/main/jenkins/images/jenkins_auth_access_2.png)
+
+#####
+
+![jenkins_auth_access_3](https://github.com/oscarobwu/Memo_Debian/raw/main/jenkins/images/jenkins_auth_access_3.png)
+
+#####
+
+![jenkins_auth_access_4](https://github.com/oscarobwu/Memo_Debian/raw/main/jenkins/images/jenkins_auth_access_4.png)
+
+#####
+
+![jenkins_auth_access_5](https://github.com/oscarobwu/Memo_Debian/raw/main/jenkins/images/jenkins_auth_access_5.png)
