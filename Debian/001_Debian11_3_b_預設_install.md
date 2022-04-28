@@ -1380,20 +1380,3 @@ $IPTABLES -t nat -A PREROUTING -j REDIRECT -p tcp --destination-port 3000 --to-p
 /etc/rc.d/init.d/iptables restart
 ```
 
-
-```
-張　義林（チョウ　ギリン／ZHANG　YILIN）
-手机号：080-3833-4012
-驾照号码：451703961400
-车牌号码：千葉347　む　710
-
-林　瑞青（リン　ズイセイ／LIN　RUIQING）
-手机号：080-4453-2726
-驾照号码：301409990550
-车牌号码：川口511　な　1221
-
-吳　致杰（ゴ　チケツ／WU CHIHCHIEH）
-手机号：080-7938-0200
-驾照号码：302101593430
-
-```
