@@ -167,3 +167,144 @@ export MIBDIRS=mibs
 ./generator generate
 #In the ./generator folder there will be a new file called snmp.yml. We can now replace the existing snmp.yml on the server running SNMP Exporter with this new snmp.yml file if we wanted to.
 ```
+### 設定檔增加labels
+
+```
+################
+  - job_name: NET-SW
+    static_configs:
+      - targets: 
+          - 192.168.2.2  # 思科交换机的 IP 地址
+    metrics_path: /snmp
+    params:
+      module: 
+        - if_mib  # 如果是其他设备，请更换其他模块。
+      community:
+        - xxxxxx  #  指定 community，当 snmp_exporter snmp.yml 配置文件没有指定 community，此处定义的 community 生效。
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 192.168.1.2:9116  # SNMP Exporter  的地址和端口
+
+###################
+多机器不同模块如何采集
+
+  - job_name: snmp
+    scrape_interval: 30s # 覆盖全局默认值
+    scrape_timeout: 5s # 覆盖全局默认值
+    file_sd_configs:
+      - files:
+        - /etc/prometheus/file_sd/snmp_device.yml # 指定 snmp 服务发现配置文件路径
+    metrics_path: /snmp
+    params:
+      module:
+      - if_mib   # 指定默认采集 MIB 模块的名称
+      community:
+      - xxxxx  指定 community，当 snmp_exporter snmp.yml 配置文件没有指定 community，此处定义的 community 生效。 缺省值一般是 public 。
+    relabel_configs:
+    - source_labels:
+      - __address__
+      target_label: __param_target
+    - source_labels:
+      - __param_target
+      target_label: instance
+    - replacement: snmp_exporter:9116
+      target_label: __address__
+    - source_labels:  # 从目标中获取MIB模块名称
+      - mib
+      target_label: __param_module
+
+##############
+f5_snmp_device.yml
+[
+    {
+        "labels": {
+            "mib": "BIG-IP-LTM",
+            "brand": "F5 Network",
+            "hostname": "LAB-VPN02.obs.com",
+            "localtion": "DC01_LAB",
+            "model": "F5-VE"
+        },
+        "targets": [
+            "192.168.88.167"
+        ]
+    },
+    {
+        "labels": {
+            "mib": "if_mib",
+            "brand": "Huawei",
+            "hostname": "SH-GQ-HW9306CSS",
+            "model": "Quidway S9306"
+        },
+        "targets": [
+            "192.168.100.2"
+        ]
+    },
+    {
+        "labels": {
+            "mib": "if_mib",
+            "brand": "Huawei",
+            "hostname": "BJ-LG-HW9306CSS",
+            "model": "Quidway S9306"
+        },
+        "targets": [
+            "192.168.100.3"
+        ]
+    },
+    {
+        "labels": {
+            "mib": "if_mib",
+            "brand": "Huawei",
+            "hostname": "GZ-RMZ-HW9306CSS",
+            "model": "Quidway S9306"
+        },
+        "targets": [
+            "192.168.100.4"
+        ]
+    }
+]
+
+
+############
+    - targets: ['192.168.88.167']
+      labels:
+        hostname: 'BBC-LTM01-PRD-DC01.local.com'
+        brand: 'F5 Network'
+        model: 'VIPRION'
+        appfuntion: 'vn-external-ltm'
+    - targets: ['192.168.88.198']
+      labels:
+        hostname: 'LAB-VPN02.obs.com'
+        brand: 'F5 Network'
+        model: 'LAB-VPN02.obs.com'
+        appfuntion: 'vn-internal-ltm'
+
+################################################
+ - job_name: 'network'
+    static_configs:
+    - targets: ['192.168.2.1']
+      labels:
+        job: 'gateway'
+    - targets: ['192.168.2.90']
+      labels:
+        job: 'downstairsap'
+    - targets: ['192.168.2.89']
+      labels:
+        job: 'upstairsap'
+    - targets: ['192.168.2.12']
+      labels:
+        job: 'switch'
+    metrics_path: /snmp
+    params:
+      module: [if_mib_ifname]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 192.168.2.213:9116  # The SNMP exporter's real hostname:port.
+```
