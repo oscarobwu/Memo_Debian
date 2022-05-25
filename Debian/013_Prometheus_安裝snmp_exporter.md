@@ -111,3 +111,59 @@ sudo service prometheus restart
 sudo service prometheus status
 
 ```
+
+# 安裝 SNMP Exporter Config Generator
+```
+#############################
+# On the new server, install the dependencies that the SNMP Exporter Config Generator will need.
+
+sudo apt update
+
+sudo apt install unzip build-essential libsnmp-dev p7zip-full 
+
+# Install the go compiler
+
+apt install golang-go 
+
+#Test that go is installed.
+
+go version
+# Download and build the exporter
+
+
+go get github.com/prometheus/snmp_exporter/generator
+
+
+#CD into the folder where the downloaded repository was saved.
+cd ${GOPATH-$HOME/go}/src/github.com/prometheus/snmp_exporter/generator
+
+
+#View the contents of the folder
+ls -lh
+# Build the project using go
+go build
+
+#There should be a new file named generator with execute permissions.
+
+...
+-rwxr-xr-x 1 root root 7.3M Nov  5 06:53 generator
+...
+
+
+#Now run
+make mibs
+
+#It will download many MIBs files and place them into a folder named mibs
+
+...
+drwxr-xr-x 3 root root 4.0K Nov  5 07:20 mibs
+...
+#We now need to create a variable that bash can use that points to the new mibs folder
+
+
+export MIBDIRS=mibs
+#Now we can test that generating a new snmp.yml works.
+# 要修改 generate.yml 建立新的snmp exp
+./generator generate
+#In the ./generator folder there will be a new file called snmp.yml. We can now replace the existing snmp.yml on the server running SNMP Exporter with this new snmp.yml file if we wanted to.
+```
