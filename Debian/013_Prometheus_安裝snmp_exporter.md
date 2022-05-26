@@ -307,4 +307,46 @@ f5_snmp_device.yml
         target_label: instance
       - target_label: __address__
         replacement: 192.168.2.213:9116  # The SNMP exporter's real hostname:port.
+        
+        
+##############################
+#設定 
+- job_name: 'snmp'
+    # Override the global default
+    scrape_interval: 120s
+    scrape_timeout: 90s
+    file_sd_configs:
+      - files:
+        - '/omd/sites/prod/etc/prometheus/conf.d/custom/*.json'
+
+    metrics_path: /snmp
+    params:                           # default values
+      module: [if_mib]
+      community: [public]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [hostname]
+        target_label: instance
+      - target_label: __address__
+        replacement: 127.0.0.1:9216    # IP:Port to reach snmp exporter
+      - source_labels: [snmpCommunity] # Take community from targets
+        target_label: __param_community
+      - source_labels: [mib]           # Take module also from targets
+        target_label: __param_module
+        
+        
+### 檔案設定
+# - '/omd/sites/prod/etc/prometheus/conf.d/custom/*.json'
+
+[
+  {
+    "targets": [ "192.168.1.1" ],
+    "labels": {
+      "hostname": "firewall.local",
+      "snmpCommunity": "MySecretROCommunity",
+      "mib": "CiscoASA"
+    }
+  }
+]
 ```
