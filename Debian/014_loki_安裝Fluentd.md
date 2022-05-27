@@ -37,6 +37,7 @@ sudo mkdir -p /data/loki
 curl -O -L "https://github.com/grafana/loki/releases/download/v2.5.0/loki-linux-amd64.zip"
 
 unzip loki-linux-amd64.zip
+unzip loki-linux-amd64.zip
 
 # chmod a+x "loki-linux-amd64"
 
