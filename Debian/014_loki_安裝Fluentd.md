@@ -40,7 +40,7 @@ unzip loki-linux-amd64.zip
 
 # chmod a+x "loki-linux-amd64"
 
-sudo mv loki-linux-amd64 promtool /usr/local/bin/
+sudo mv loki-linux-amd64 /usr/local/bin/
 
 sudo vi /etc/loki/config-loki.yml
 ######################################################################
