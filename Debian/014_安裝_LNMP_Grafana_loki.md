@@ -476,6 +476,7 @@ EOF
 #
 sudo systemctl daemon-reload
 sudo systemctl start loki
+sudo systemctl enable --now loki
 
 ```
 
