@@ -938,4 +938,9 @@ sudo systemctl restart prometheus
 
 設定 Grafana
 
+安裝 telegraf
+curl -LO -C - https://dl.influxdata.com/telegraf/releases/telegraf_1.22.2-1_amd64.deb
+sudo dpkg -i telegraf_1.22.2-1_amd64.deb
+
+
 ```
