@@ -754,6 +754,10 @@ server {
 }
 
 ####
+
+touch /var/www/html/phpinfo.php && echo '<?php phpinfo(); ?>' >> /var/www/html/phpinfo.php
+
+#
 vi /var/www/html/index.html
 
 <!DOCTYPE html>
