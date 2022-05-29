@@ -64,7 +64,7 @@ apt update
 
 安裝
 sudo apt update
-sudo apt install mariadb-server mariadb-client
+sudo apt install mariadb-server mariadb-client -y
 
 ## $ systemctl start mysql.service
 $ sudo systemctl enable --now mysql.service
@@ -696,7 +696,7 @@ server {
         location ~ \.php$ {
             #try_files $uri /index.php =404;
             fastcgi_split_path_info ^(.+\.php)(/.+)$;
-            fastcgi_pass   unix:/var/run/php/php8.0-fpm.sock;
+            fastcgi_pass   unix:/var/run/php/php8.1-fpm.sock;
             fastcgi_index  index.php;
             #fastcgi_param  SCRIPT_FILENAME /var/www/html/$fastcgi_script_name;
             fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
