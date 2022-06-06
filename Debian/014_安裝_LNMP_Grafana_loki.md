@@ -551,6 +551,8 @@ sudo systemctl enable --now loki
 curl -fsSL https://toolbelt.treasuredata.com/sh/install-debian-bullseye-td-agent4.sh | sh
 
 sudo td-agent-gem install fluent-plugin-grafana-loki
+#
+td-agent-gem install fluent-plugin-grep #過濾外掛
 
 
 $ sudo systemctl start td-agent.service
