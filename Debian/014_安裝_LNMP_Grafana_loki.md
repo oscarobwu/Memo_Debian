@@ -412,6 +412,9 @@ auth_enabled: false
 server:
   http_listen_port: 3100
   grpc_listen_port: 9096
+  #grpc_listen_port :  39095 #grpc listening port, default is 9095 
+  grpc_server_max_recv_msg_size :  15728640   #grpc maximum received message value, default 4m 
+  grpc_server_max_send_msg_size :  15728640   #grpc maximum send message value, default 4m
 
 common:
   path_prefix: /data/loki
