@@ -73,7 +73,7 @@ $ mysql_secure_installation
 
 $ mariadb --version
 
-mysql  Ver 15.1 Distrib 10.5.12-MariaDB, for debian-linux-gnu (x86_64) using readline EditLine wrapper
+mariadb  Ver 15.1 Distrib 10.7.4-MariaDB, for debian-linux-gnu (x86_64) using readline EditLine wrapper
 
 root@debian-s-1vcpu-1gb-sfo2-01:~#
 
