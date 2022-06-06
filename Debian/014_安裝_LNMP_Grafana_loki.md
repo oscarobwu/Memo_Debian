@@ -460,6 +460,65 @@ table_manager:
   retention_deletes_enabled: true
   retention_period: 2160h
 #######################################################################
+20220607更新
+auth_enabled: false
+
+server:
+  http_listen_port: 3100
+  grpc_listen_port: 9096
+  #grpc_listen_port :  39095 #grpc listening port, default is 9095
+  grpc_server_max_recv_msg_size :  15728640   #grpc maximum received message value, default 4m
+  grpc_server_max_send_msg_size :  15728640   #grpc maximum send message value, default 4m
+
+common:
+  path_prefix: /data/loki
+  storage:
+    filesystem:
+      chunks_directory: /data/loki/chunks
+      rules_directory: /data/loki/rules
+  replication_factor: 1
+  ring:
+    instance_addr: 127.0.0.1
+    kvstore:
+      store: inmemory
+
+schema_config:
+  configs:
+    - from: 2020-10-24
+      store: boltdb-shipper
+      object_store: filesystem
+      schema: v11
+      index:
+        prefix: index_
+        period: 24h
+
+storage_config:
+  boltdb:
+    directory: /data/loki/index   #索引檔案儲存地址
+
+  filesystem:
+    directory: /data/loki/chunks  #塊儲存地址
+
+limits_config:
+  enforce_metric_name: false
+  reject_old_samples: true
+  reject_old_samples_max_age: 168h
+  ingestion_rate_mb :  30   #Modify the intake rate limit per user, which is the sample size per second, the default value is 4M
+  ingestion_burst_size_mb :  15   #Modify the intake rate limit per user, which is the sample size per second , The default value is 6M
+
+
+chunk_store_config:
+  # 最大可查詢歷史日期 90天
+  max_look_back_period: 2160h
+
+# 表的保留期90天
+table_manager:
+  retention_deletes_enabled: true
+  retention_period: 2160h
+
+
+#######################################################################
+
 
 sudo tee /etc/systemd/system/loki.service<<EOF
 [Unit]
