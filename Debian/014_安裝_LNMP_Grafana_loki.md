@@ -630,7 +630,12 @@ sudo systemctl restart td-agent
 sudo apt-get install -y adduser libfontconfig1
 wget https://dl.grafana.com/oss/release/grafana_8.5.3_amd64.deb
 sudo dpkg -i grafana_8.5.3_amd64.deb
-
+##
+#20220609 更新安裝新版
+sudo apt-get install -y adduser libfontconfig1
+wget https://dl.grafana.com/oss/release/grafana_8.5.5_amd64.deb
+sudo dpkg -i grafana_8.5.5_amd64.deb
+###
 systemctl daemon-reload
 systemctl start grafana-server
 systemctl enable grafana-server.service
