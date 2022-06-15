@@ -609,6 +609,12 @@ sudo apt-get install -y adduser libfontconfig1
 wget https://dl.grafana.com/oss/release/grafana_8.5.5_amd64.deb
 sudo dpkg -i grafana_8.5.5_amd64.deb
 ###
+# 更新版本 9.0.0
+sudo apt-get install -y adduser libfontconfig1
+wget https://dl.grafana.com/oss/release/grafana_9.0.0_amd64.deb
+sudo dpkg -i grafana_9.0.0_amd64.deb
+
+###
 systemctl daemon-reload
 systemctl start grafana-server
 systemctl enable grafana-server.service
