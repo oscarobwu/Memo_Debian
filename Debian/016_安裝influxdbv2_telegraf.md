@@ -556,7 +556,7 @@ influx version
 root@cyberithub:~# systemctl start influxdb
 root@cyberithub:~# systemctl status influxdb
 # 開機啟動
-root@cyberithub:~# systemctl enable influxdb
+root@cyberithub:~# systemctl enable --now start influxdb
 
 # 初始設定influxdb 
 Step 10: Setup InfluxDB
