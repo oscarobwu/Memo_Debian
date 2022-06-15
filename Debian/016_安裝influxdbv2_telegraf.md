@@ -484,7 +484,7 @@ Step 13: Create User Authorization
 
 ```
 curl -LO -C - https://dl.influxdata.com/telegraf/releases/telegraf_1.22.4-1_amd64.deb
-
+#
 wget -qO- https://repos.influxdata.com/influxdb.key | sudo tee /etc/apt/trusted.gpg.d/influxdata.asc >/dev/null
 echo "deb https://repos.influxdata.com/debian stable main" | sudo tee /etc/apt/sources.list.d/influxdata.list
 sudo apt update && sudo apt install telegraf
@@ -496,27 +496,31 @@ sudo systemctl enable --now start telegraf
 
 ## 建立新的組織
 
-influx org create -n citizix_org
+influx org create -n f5_ltm_org
+
+influx org create -n f5_apm_org
 
 ## 確認是否建立成功
 
-influx bucket find --org citizix_org
+influx bucket find --org f5_ltm_org
 
 ## Creating influxdb bucket and user
-# Create bucket for telegraf_bucket with data retention for 6 months (4380h).
+# Create bucket for telegraf_ltm_bucket with data retention for 6 months (4380h).
 
-influx bucket create --org citizix_org --name telegraf_bucket --retention 4380h
+influx bucket create --org f5_ltm_org --name telegraf_f5ltm_bucket --retention 4380h
 
 # Then create a telegraf user
 # 要記下 username 和 token
-influx user create --name telegraf_user --org citizix_org --password SecretP4ss!
+influx user create --name telegraf_f5ltm_user --org f5_ltm_org --password SecretP4ss!
 
 # 給予user 權限 一定要機加組織才算是有權限 這樣才能對應到 Grafana 中的設定
 
-$ influx auth create -o citizix_org --user telegraf_user --read-buckets --write-buckets
+$ influx auth create -o f5_ltm_org --user telegraf_f5ltm_user --read-buckets --write-buckets
 
 # 刪除權限
-
+# 先要list
+influx auth list
+# 確認ID後再山族
 influx auth delete -i 09853f9a218f5000
 
 ## 
@@ -530,8 +534,8 @@ influx user delete -i
 [[outputs.influxdb_v2]]
   urls = ["http://127.0.0.1:8086"]
   token = "xKMCGABR3S34mRCWjYlvMw0d6J-igMZqqxPoWjt9Kx1VWS5kDHdoiXp-gCzWjdC0cEodaNZ0rzE33VssIwwXPw=="
-  organization = "citizix_org"
-  bucket = "telegraf_bucket"
+  organization = "f5_ltm_org"
+  bucket = "telegraf_f5ltm_bucket"
   
 ############################
 
