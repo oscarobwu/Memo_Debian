@@ -733,6 +733,9 @@ vi /etc/telegraf/telegraf.conf
 
 telegraf --config /etc/telegraf/telegraf.conf --test
 telegraf --config /etc/telegraf/telegraf.conf --debug
+
+ cat /etc/telegraf/telegraf.conf | grep "^\s*[^# ]"
+
 # 安裝 15650 的grafana 圖表
 
 
