@@ -734,6 +734,8 @@ vi /etc/telegraf/telegraf.conf
 telegraf --config /etc/telegraf/telegraf.conf --test
 telegraf --config /etc/telegraf/telegraf.conf --debug
 
+# 來自 grep "^\s*[^# \t].*$"
+# 過濾 設定檔
  cat /etc/telegraf/telegraf.conf | grep "^\s*[^# ]"
 
 # 安裝 15650 的grafana 圖表
