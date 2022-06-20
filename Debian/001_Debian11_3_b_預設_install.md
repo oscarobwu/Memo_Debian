@@ -92,6 +92,8 @@ cd fonts && ./install.sh
 pip install powerline-status
 pip install powerline-gitstatus
 #
+apt install vim-youcompleteme -y
+#
 cd ~
 git clone https://github.com/oscarobwu/vim-temp.git
 
