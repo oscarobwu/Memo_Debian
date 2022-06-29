@@ -123,6 +123,17 @@ cd /var/ilx/workspaces/Common/irules_lx_mysql_workspace/extensions/mysql_extensi
 npm install mysql --save
 # 確認套件
 # ls node_modules/
+
+查OID
+snmptranslate -On F5-BIGIP-LOCAL-MIB::ltmVsStatusAvailState
+
+查名稱
+snmptranslate -Td .1.3.6.1.4.1.3375.2.2.10.2.3.1.12
+
+查說明
+snmptranslate -Td F5-BIGIP-LOCAL-MIB::ltmVsStatusAvailState
+
+
 ```
 
 ![ppp](https://github.com/oscarobwu/Memo_Debian/raw/main/ansible.png)
