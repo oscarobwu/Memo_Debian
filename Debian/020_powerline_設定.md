@@ -15,6 +15,8 @@ pip install powerline-gitstatus
 
 pip install psutil netifaces
 
+pip install powerline-mem-segment
+
 vi ~/.bashrc 
 ####
 POWERLINE_SCRIPT=/usr/share/powerline/bindings/bash/powerline.sh
