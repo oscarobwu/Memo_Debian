@@ -330,7 +330,8 @@ vi /usr/share/powerline/config_files/config.json
         }
 }
 
-``
+```
+
 ### 設定 新增記憶體顏色
 
 ```
