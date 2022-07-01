@@ -238,3 +238,96 @@ vi /usr/share/powerline/config_files/config.json
 }
 
 ```
+### 範例 2 /usr/share/powerline/config_files/themes/shell/default_good.json
+```
+{
+  "cursor_space": 50,
+        "segments": {
+            "above": [{
+                "left": [
+                        {
+                                "function": "powerline.segments.shell.mode"
+                        },
+                        {
+                                "function": "powerline.segments.common.net.hostname",
+                                "priority": 10
+                        },
+                        {
+                                "function": "powerline.segments.common.net.internal_ip",
+                                "after": " "
+                        },
+                        {
+                                "function": "powerline.segments.common.env.user",
+                                "priority": 30
+                        },
+                        {
+                                "function": "powerline.segments.common.env.virtualenv",
+                                "priority": 50
+                        },
+                        {
+                                "function": "powerline.segments.shell.cwd",
+                                "priority": 10,
+                                "args": {
+                                  "dir_shorten_len": 10,
+                                  "dir_limit_depth": 8
+                                }
+                        },
+                        {
+                                "function": "powerline.segments.shell.last_status",
+                                "after": " "
+                        },
+                        {
+                                 "function": "powerline.segments.common.time.date",
+                                 "name": "time",
+                                   "args": {
+                                     "format": "%Y/%m/%d %H:%M:%S"
+                              }
+                        },
+                        {
+                                "function":"powerline.segments.common.sys.cpu_load_percent",
+                                "before": "CPU: ",
+                                "priority": 20
+                        },
+                        {
+                                "function": "powerlinemem.mem_usage.mem_usage",
+                                "priority": 50,
+                                "args": {
+                                    "mem_type": "active"
+                                }
+                        }
+                ],
+                "right": [
+                        {
+                                "function": "powerlinemem.mem_usage.mem_usage_percent",
+                                "priority": 50,
+                                "args": {
+                                    "format": "Mem: %d%%"
+                                }
+                        },
+                        {
+                                "function": "powerline.segments.shell.last_pipe_status",
+                                "priority": 10
+                        },
+                        {
+                                "function": "powerline.segments.common.vcs.stash",
+                                "priority": 50
+                        },
+                        {
+                                "function": "powerline.segments.common.vcs.branch",
+                                "priority": 40
+                        }
+                ]
+            }],
+            "left": [
+                {
+                    "type": "string",
+                    "contents": "$ ",
+                    "highlight_groups": ["continuation:current"]
+                }
+            ],
+            "right": [
+            ]
+        }
+}
+
+``
