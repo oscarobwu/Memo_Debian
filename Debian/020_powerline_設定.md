@@ -16,6 +16,8 @@ pip install powerline-gitstatus
 pip install psutil netifaces
 
 pip install powerline-mem-segment
+# for vim
+pip install flake8 yapf
 
 vi ~/.bashrc 
 ####
