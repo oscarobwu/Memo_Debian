@@ -30,6 +30,9 @@ fi
 ####
 source ~/.bashrc
 
+#### 重啟 powerline-daemon
+powerline-daemon --replace
+
 vi /usr/share/powerline/config_files/colorschemes/shell/default.json
 
 {
