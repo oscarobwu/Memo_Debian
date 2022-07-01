@@ -3,11 +3,11 @@
 ### 安裝
 
 ```
-apt install python-pip git
+apt install python-pip git -y
 
-apt install powerline
+apt install powerline -y
 
-apt install fonts-powerline
+apt install fonts-powerline -y
 
 pip show powerline-status
 
