@@ -331,3 +331,28 @@ vi /usr/share/powerline/config_files/config.json
 }
 
 ``
+### 設定 新增記憶體顏色
+
+```
+{
+        "name": "Default color scheme for shell prompts",
+        "groups": {
+                "hostname":         { "fg": "brightyellow", "bg": "mediumorange", "attrs": [] },
+                "environment":      { "fg": "white", "bg": "darkestgreen", "attrs": [] },
+                "mode":             { "fg": "darkestgreen", "bg": "brightgreen", "attrs": ["bold"] },
+                "attached_clients": { "fg": "white", "bg": "darkestgreen", "attrs": [] },
+                "internal_ip":      { "fg": "darkestgreen", "bg": "brightgreen", "attrs": ["bold"] },
+                "date":             { "fg": "darkestgreen", "bg": "brightgreen", "attrs": [] },
+                "mem_usage":                 { "fg": "gray8", "bg": "gray0", "attrs": [] },
+                "mem_usage_gradient":        { "fg": "green_yellow_orange_red", "bg": "gray0", "attrs": [] }
+        },
+        "mode_translations": {
+                "vicmd": {
+                        "groups": {
+                                "mode": {"fg": "darkestcyan", "bg": "white", "attrs": ["bold"]}
+                        }
+                }
+        }
+}
+
+```
