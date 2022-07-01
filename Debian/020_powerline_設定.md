@@ -21,7 +21,10 @@ vi ~/.bashrc
 ####
 POWERLINE_SCRIPT=/usr/share/powerline/bindings/bash/powerline.sh
 if [ -f $POWERLINE_SCRIPT ]; then
-source $POWERLINE_SCRIPT
+  powerline-daemon -q
+  POWERLINE_BASH_CONTINUATION=1
+  POWERLINE_BASH_SELECT=1
+  source $POWERLINE_SCRIPT
 fi
 
 ####
