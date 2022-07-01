@@ -343,7 +343,7 @@ vi /usr/share/powerline/config_files/config.json
                 "mode":             { "fg": "darkestgreen", "bg": "brightgreen", "attrs": ["bold"] },
                 "attached_clients": { "fg": "white", "bg": "darkestgreen", "attrs": [] },
                 "internal_ip":      { "fg": "darkestgreen", "bg": "brightgreen", "attrs": ["bold"] },
-                "date":             { "fg": "darkestgreen", "bg": "brightgreen", "attrs": [] },
+                "date":             { "fg": "white", "bg": "green", "attrs": ["bold"] },
                 "mem_usage":                 { "fg": "gray8", "bg": "gray0", "attrs": [] },
                 "mem_usage_gradient":        { "fg": "green_yellow_orange_red", "bg": "gray0", "attrs": [] }
         },
