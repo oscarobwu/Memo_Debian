@@ -197,3 +197,42 @@ vi /usr/share/powerline/config_files/config.json
         }
 }
 ```
+
+### 修改背景顏色
+#### vi /usr/share/powerline/config_files/colorschemes/shell/default.json
+###  新增 internal_ip 顏色
+
+```
+{
+        "name": "Default color scheme for shell prompts",
+        "groups": {
+                "hostname":         { "fg": "brightyellow", "bg": "mediumorange", "attrs": [] },
+                "environment":      { "fg": "white", "bg": "darkestgreen", "attrs": [] },
+                "mode":             { "fg": "darkestgreen", "bg": "brightgreen", "attrs": ["bold"] },
+                "attached_clients": { "fg": "white", "bg": "darkestgreen", "attrs": [] },
+                "internal_ip":      { "fg": "darkestgreen", "bg": "brightgreen", "attrs": ["bold"] },
+                "gitstatus":                 { "fg": "gray8",           "bg": "gray2", "attrs": [] },
+                "gitstatus_branch":          { "fg": "gray8",           "bg": "gray2", "attrs": [] },
+                "gitstatus_branch_clean":    { "fg": "green",           "bg": "gray2", "attrs": [] },
+                "gitstatus_branch_dirty":    { "fg": "gray8",           "bg": "gray2", "attrs": [] },
+                "gitstatus_branch_detached": { "fg": "mediumpurple",    "bg": "gray2", "attrs": [] },
+                "gitstatus_tag":             { "fg": "darkcyan",        "bg": "gray2", "attrs": [] },
+                "gitstatus_behind":          { "fg": "gray10",          "bg": "gray2", "attrs": [] },
+                "gitstatus_ahead":           { "fg": "gray10",          "bg": "gray2", "attrs": [] },
+                "gitstatus_staged":          { "fg": "green",           "bg": "gray2", "attrs": [] },
+                "gitstatus_unmerged":        { "fg": "brightred",       "bg": "gray2", "attrs": [] },
+                "gitstatus_changed":         { "fg": "mediumorange",    "bg": "gray2", "attrs": [] },
+                "gitstatus_untracked":       { "fg": "brightestorange", "bg": "gray2", "attrs": [] },
+                "gitstatus_stashed":         { "fg": "darkblue",        "bg": "gray2", "attrs": [] },
+                "gitstatus:divider":         { "fg": "gray8",           "bg": "gray2", "attrs": [] }
+        },
+        "mode_translations": {
+                "vicmd": {
+                        "groups": {
+                                "mode": {"fg": "darkestcyan", "bg": "white", "attrs": ["bold"]}
+                        }
+                }
+        }
+}
+
+```
