@@ -492,81 +492,91 @@ vi /usr/share/powerline/config_files/config.json
 
 ```
 {
-	"segments": {
-		"above": [
-			{
-				"left": [
-					{
-						"function": "powerline.segments.shell.mode"
-					},
-					{
-						"function": "powerline.segments.common.net.hostname",
-						"priority": 10
-					},
-					{
-						"function": "powerline.segments.common.env.user",
-						"priority": 30
-					},
-					{
-						"function": "powerline.segments.common.env.virtualenv",
-						"priority": 50
-					},
-					{
-						"function": "powerline.segments.shell.cwd",
-						"priority": 10,
-						"args": {
-							"use_path_separator": true
-						}
-					},
-					{
-						"function": "powerline.segments.shell.jobnum",
-						"priority": 20
-					},
-					{
-						"function": "powerline.segments.shell.continuation",
+        "segments": {
+                "above": [
+                        {
+                                "left": [
+                                        {
+                                                "function": "powerline.segments.shell.mode"
+                                        },
+                                        {
+                                                "function": "powerline.segments.common.net.hostname",
+                                                "priority": 10
+                                        },
+                                        {
+                                                "function": "powerline.segments.common.net.internal_ip",
+                                                "after": " "
+                                        },
+                                        {
+                                                "function": "powerline.segments.common.env.user",
+                                                "priority": 30
+                                        },
+                                        {
+                                                "function": "powerline.segments.common.env.virtualenv",
+                                                "priority": 50
+                                        },
+                                        {
+                                                "function": "powerline.segments.shell.cwd",
+                                                "priority": 10,
+                                                "args": {
+                                                        "use_path_separator": true
+                                                }
+                                        },
+                                        {
+                                                "function": "powerline.segments.shell.jobnum",
+                                                "priority": 20
+                                        },
+                                        {
+                                                "function": "powerline_gitstatus.gitstatus",
+                                                "priority": 40
+                                        },
+                                        {
+                                                "function": "powerline.segments.shell.continuation",
                                                 "draw_hard_divider": false
-					}
-				],
-				"right": [
-					{
-						"function": "powerline.segments.shell.last_status"
-					},
-					{
-						"function": "powerline.segments.common.time.date"
-					},
-					{
-						"function": "powerline.segments.common.time.date",
-						"name": "time",
-						"args": {
-							"format": "%H:%M:%S %A",
-							"istime": true
-						}
-					},
-					{
-						"function": "powerline.segments.common.vcs.branch",
-						"priority": 40
-					}
-				]
-			},
-			{
-			}
-		],
-		"left": [
-			{
-				"function": "powerline.segments.shell.mode"
-			},
-			{
-				"function": "powerline.segments.shell.last_pipe_status",
-				"priority": 10
-			},
-			{
-				"function": "powerline.segments.common.time.date",
-				"args": {
-					"format": "$"
-				}
-			}
-		],
-		"right": [
-		]
-	}
-}```
+                                        }
+                                ],
+                                "right": [
+                                        {
+                                                "function": "powerline.segments.shell.last_status"
+                                        },
+                                        {
+                                                "function": "powerline.segments.common.time.date"
+                                        },
+                                        {
+                                                "function": "powerline.segments.common.time.date",
+                                                "name": "time",
+                                                "args": {
+                                                        "format": "%H:%M:%S %A",
+                                                        "istime": true
+                                                }
+                                        },
+                                        {
+                                                "function": "powerline.segments.common.vcs.branch",
+                                                "priority": 40
+                                        }
+                                ]
+                        },
+                        {
+                        }
+                ],
+                "left": [
+                        {
+                                "function": "powerline.segments.shell.mode"
+                        },
+                        {
+                                "function": "powerline.segments.shell.last_pipe_status",
+                                "priority": 10
+                        },
+                        {
+                                "function": "powerline.segments.common.time.date",
+                                "args": {
+                                        "format": "$"
+                                }
+                        }
+                ],
+                "right": [
+                ]
+        }
+}
+
+```
