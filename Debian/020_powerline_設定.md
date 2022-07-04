@@ -582,6 +582,7 @@ vi /usr/share/powerline/config_files/config.json
 ```
 
 ### 顏色
+### vi /usr/share/powerline/config_files/colorschemes/shell/default.json
 
 ```
 {
@@ -592,7 +593,7 @@ vi /usr/share/powerline/config_files/config.json
                 "mode":             { "fg": "darkestgreen", "bg": "brightgreen", "attrs": ["bold"] },
                 "attached_clients": { "fg": "white", "bg": "darkestgreen", "attrs": [] },
                 "internal_ip":      { "fg": "darkestgreen", "bg": "brightgreen", "attrs": ["bold"] },
-                "date":             { "fg": "white", "bg": "mediumorange", "attrs": ["bold"] },
+                "date":             { "fg": "white", "bg": "mediumpurple", "attrs": [] },
                 "cpu_load_percent": { "fg": "white", "bg": "green", "attrs": [] },
                 "mem_usage":                 { "fg": "gray8", "bg": "gray0", "attrs": [] },
                 "mem_usage_gradient":        { "fg": "green_yellow_orange_red", "bg": "gray0", "attrs": [] },
@@ -619,5 +620,6 @@ vi /usr/share/powerline/config_files/config.json
                 }
         }
 }
+
 
 ```
