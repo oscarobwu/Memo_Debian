@@ -580,3 +580,44 @@ vi /usr/share/powerline/config_files/config.json
 }
 
 ```
+
+### 顏色
+
+```
+{
+        "name": "Default color scheme for shell prompts",
+        "groups": {
+                "hostname":         { "fg": "brightyellow", "bg": "mediumorange", "attrs": [] },
+                "environment":      { "fg": "white", "bg": "darkestgreen", "attrs": [] },
+                "mode":             { "fg": "darkestgreen", "bg": "brightgreen", "attrs": ["bold"] },
+                "attached_clients": { "fg": "white", "bg": "darkestgreen", "attrs": [] },
+                "internal_ip":      { "fg": "darkestgreen", "bg": "brightgreen", "attrs": ["bold"] },
+                "date":             { "fg": "white", "bg": "mediumorange", "attrs": ["bold"] },
+                "cpu_load_percent": { "fg": "white", "bg": "green", "attrs": [] },
+                "mem_usage":                 { "fg": "gray8", "bg": "gray0", "attrs": [] },
+                "mem_usage_gradient":        { "fg": "green_yellow_orange_red", "bg": "gray0", "attrs": [] },
+                "gitstatus":                 { "fg": "gray8",           "bg": "gray2", "attrs": [] },
+                "gitstatus_branch":          { "fg": "gray8",           "bg": "gray2", "attrs": [] },
+                "gitstatus_branch_clean":    { "fg": "green",           "bg": "gray2", "attrs": [] },
+                "gitstatus_branch_dirty":    { "fg": "gray8",           "bg": "gray2", "attrs": [] },
+                "gitstatus_branch_detached": { "fg": "mediumpurple",    "bg": "gray2", "attrs": [] },
+                "gitstatus_tag":             { "fg": "darkcyan",        "bg": "gray2", "attrs": [] },
+                "gitstatus_behind":          { "fg": "gray10",          "bg": "gray2", "attrs": [] },
+                "gitstatus_ahead":           { "fg": "gray10",          "bg": "gray2", "attrs": [] },
+                "gitstatus_staged":          { "fg": "green",           "bg": "gray2", "attrs": [] },
+                "gitstatus_unmerged":        { "fg": "brightred",       "bg": "gray2", "attrs": [] },
+                "gitstatus_changed":         { "fg": "mediumorange",    "bg": "gray2", "attrs": [] },
+                "gitstatus_untracked":       { "fg": "brightestorange", "bg": "gray2", "attrs": [] },
+                "gitstatus_stashed":         { "fg": "darkblue",        "bg": "gray2", "attrs": [] },
+                "gitstatus:divider":         { "fg": "gray8",           "bg": "gray2", "attrs": [] }
+        },
+        "mode_translations": {
+                "vicmd": {
+                        "groups": {
+                                "mode": {"fg": "darkestcyan", "bg": "white", "attrs": ["bold"]}
+                        }
+                }
+        }
+}
+
+```
