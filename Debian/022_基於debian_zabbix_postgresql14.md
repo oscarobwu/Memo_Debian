@@ -1,6 +1,6 @@
-# 基於 Debian + Nginx + php + postgresql14+timescaledb安装zabbix6.0
+# 基於 Debian + Nginx + php + postgresql14 + timescaledb 安装zabbix6.0
 
-# 安装postgresql数据库
+# 安装postgresql 資料庫
 
 ```
 022_基於debian_zabbix_postgresql14.md
@@ -26,6 +26,17 @@ sudo apt install postgresql-14
 sudo -u postgres psql -c "SELECT version();"
 
 systemctl status postgresql
+
+# 设置postgres passwd
+
+# 切换postgres用户
+
+# 修改postgres用户Passwd
+
+# postgres=# ALTER USER postgres WITH PASSWORD 'PASSWORD';
+
+# 开放登录端口
+
 
 登入 postgresql-14 兩種方式
 第一種
@@ -60,7 +71,7 @@ host    all             all             0.0.0.0/0               md5
 
 # 編輯允許存取 位址
 # 找到 listen_addresses
-sudo vim /etc/postgresql/14/main/postgresql.conf]
+sudo vim /etc/postgresql/14/main/postgresql.conf
 
 # CONNECTIONS AND AUTHENTICATION
 ........
@@ -74,21 +85,22 @@ sudo systemctl enable postgresql
 
 sudo -u postgres psql
 
-CREATE ROLE admin WITH LOGIN SUPERUSER CREATEDB CREATEROLE PASSWORD 'Passw0rd';
-
+CREATE ROLE admin WITH LOGIN SUPERUSER CREATEDB CREATEROLE PASSWORD 'f99XVu73Spfcgxw';
+ALTER USER postgres WITH PASSWORD 'f99XVu73Spfcgxw';
 Manage application users
 
 create database test_db;
-create user test_user with encrypted password 'dbpassword';
+create user test_user with encrypted password 'f99XVu73Spfcgxw';
 grant all privileges on database test_db to test_user;
 \q
 
 # 確認 postgresql-14 服務是否啟動
 ss -tunelp | grep 5432
  
+ 
 ```
 
-### 安裝 timescaledb
+### 安裝 postgresql timescaledb
 
 ```
 apt install gnupg postgresql-common apt-transport-https lsb-release wget
@@ -103,13 +115,20 @@ apt update
 
 apt install timescaledb-2-postgresql-14
 
-timescaledb-tune --pg-config=/usr/pgsql-14/bin/pg_config
+# timescaledb-tune --pg-config=/usr/pgsql-14/bin/pg_config
+#
+# timescaledb-tune --pg-config=/usr/lib/postgresql/14/bin/pg_config
+# debian 11 指令
+sudo timescaledb-tune
+Or
+sudo timescaledb-tune --quiet --yes
 
-systemctl restart postgresql-14
+sudo systemctl restart postgresql
 
 測試登入
 
 psql -U postgres -h localhost
+
 postgres=# CREATE EXTENSION timescaledb;
 
 postgres=#\dx
@@ -152,7 +171,11 @@ apt install zabbix-server-pgsql zabbix-frontend-php php-pgsql zabbix-apache-conf
 編輯 Edit file /etc/zabbix/zabbix_server.conf
 
 DBPassword=password
-
+# 重要
+# 開啟 timesscaledb 插件
+echo "CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;" | sudo -u postgres psql zabbix
+cat /usr/share/doc/zabbix-sql-scripts/postgresql/timescaledb.sql | sudo -u zabbix psql zabbix
+#
 # systemctl restart zabbix-server zabbix-agent apache2
 # systemctl enable zabbix-server zabbix-agent apache2
 
