@@ -27,7 +27,65 @@ sudo -u postgres psql -c "SELECT version();"
 
 systemctl status postgresql
 
+登入 postgresql-14 兩種方式
+第一種
+sudo -i -u postgres
+psql
 
+第二種
+sudo -u postgres psql
+
+修改允許遠端存取
+
+sudo sed -i '/^local/s/peer/trust/' /etc/postgresql/14/main/pg_hba.conf
+
+sudo sed -i '/^host/s/ident/md5/' /etc/postgresql/14/main/pg_hba.conf
+
+確認檔案
+
+sudo vi /etc/postgresql/14/main/pg_hba.conf
+# 新增 md5 兩行
+# Database administrative login by Unix domain socket
+local   all             postgres                                trust
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+
+# "local" is for Unix domain socket connections only
+local   all             all                                     trust
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            scram-sha-256
+host    all             all             0.0.0.0/24              md5
+# IPv6 local connections:
+host    all             all             ::1/128                 scram-sha-256
+host    all             all             0.0.0.0/0               md5
+
+# 編輯允許存取 位址
+# 找到 listen_addresses
+sudo vim /etc/postgresql/14/main/postgresql.conf]
+
+# CONNECTIONS AND AUTHENTICATION
+........
+listen_addresses='*'
+
+## 重新啟動
+sudo systemctl restart postgresql
+sudo systemctl enable postgresql
+
+管理 psql
+
+sudo -u postgres psql
+
+CREATE ROLE admin WITH LOGIN SUPERUSER CREATEDB CREATEROLE PASSWORD 'Passw0rd';
+
+Manage application users
+
+create database test_db;
+create user test_user with encrypted password 'dbpassword';
+grant all privileges on database test_db to test_user;
+\q
+
+# 確認 postgresql-14 服務是否啟動
+ss -tunelp | grep 5432
+ 
 ```
 
 ### 安裝 timescaledb
