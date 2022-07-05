@@ -279,6 +279,10 @@ create user zabbixproxyuser@localhost identified by 'f99XVu73Spfcgxw';
 grant all privileges on zabbix_proxydb.* to zabbixproxyuser@localhost;
 quit; 
 
+cat /usr/share/doc/zabbix-sql-scripts/mysql/proxy.sql | mysql -uzabbixproxyuser -p zabbix_proxydb
+
+匯入 zabbix proxy sql
+
 vi /etc/zabbix/zabbix_proxy.conf
 
 Server = xxx.xxx.xxx.xxx 
