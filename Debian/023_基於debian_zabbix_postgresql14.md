@@ -219,6 +219,7 @@ mv graphfont.ttf graphfont.ttf.back
 #
 ln -s kaiu.ttf graphfont.ttf
 
+# systemctl restart zabbix-server zabbix-agent apache2
 
 ```
 
