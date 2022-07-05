@@ -181,3 +181,39 @@ cat /usr/share/doc/zabbix-sql-scripts/postgresql/timescaledb.sql | sudo -u zabbi
 
 
 ```
+
+### 中文化
+
+```
+修改中文語系
+
+中文化
+事前準備 
+設定語系
+# locale -a
+# dpkg-reconfigure locales (安裝語系)
+# apt install xfonts-intl-chinese
+
+修改中文語系  # 要等 zabbix 安裝完成後才能使用下列指令
+
+sed -i '/zh_TW/s/false/true/' /usr/share/zabbix/include/locales.inc.php
+
+上傳 中文自行檔 # 重要
+
+修改簡體中文語系　亂碼
+[root@zabbix ~]# sed -i  's/graphfont/simkai/g'  /usr/share/zabbix/include/defines.inc.php
+換成繁體中文字形
+[root@zabbix ~]# sed -i 's/graphfont/kaiu/g' /usr/share/zabbix/include/defines.inc.php
+
+將 kaiu.ttf 上傳到 /usr/share/zabbix/assets/fonts
+
+cp ~/kaiu.ttf /usr/share/zabbix/assets/fonts
+
+cd /usr/share/zabbix/assets/fonts
+#
+mv graphfont.ttf graphfont.ttf.back
+#
+ln -s kaiu.ttf graphfont.ttf
+
+
+```
