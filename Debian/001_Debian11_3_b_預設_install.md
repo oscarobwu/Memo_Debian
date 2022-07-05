@@ -99,6 +99,8 @@ git clone https://github.com/oscarobwu/vim-temp.git
 
 #copy f5_snmp to mibs
 cp -r vim-temp/snmp_f5/* /usr/share/snmp/mibs/
+# 複製中文字型
+cp -r vim-temp/kaiu.ttf ~/
 #
 cd vim-temp
 cp .vimrc ~/.vimrc
