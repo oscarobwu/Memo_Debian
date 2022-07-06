@@ -1,13 +1,13 @@
 # 基於 Debian + Nginx + php + postgresql14 + timescaledb 安装zabbix6.0
 
-### 安装postgresql 資料庫 (更新proxy 安裝 維持mariadb)
+# 安装postgresql 資料庫
 
 ```
 # Debian11_3_Zabbix60_pqls_timescaledb_01
 
 # Debian11-Zabbix-Server01
 
-023_基於debian_zabbix_postgresql14.md
+022_基於debian_zabbix_postgresql14.md
 
 sudo apt update && sudo apt upgrade
 
@@ -75,11 +75,12 @@ host    all             all             0.0.0.0/0               md5
 
 # 編輯允許存取 位址
 # 找到 listen_addresses
-sudo vim /etc/postgresql/14/main/postgresql.conf
+sudo vi /etc/postgresql/14/main/postgresql.conf
 
 # CONNECTIONS AND AUTHENTICATION
 ........
 listen_addresses='*'
+max_connections = 1000
 
 ## 重新啟動
 sudo systemctl restart postgresql
@@ -183,6 +184,42 @@ cat /usr/share/doc/zabbix-sql-scripts/postgresql/timescaledb.sql | sudo -u zabbi
 # systemctl restart zabbix-server zabbix-agent apache2
 # systemctl enable zabbix-server zabbix-agent apache2
 
+cp /etc/zabbix/zabbix_proxy.conf /etc/zabbix/zabbix_proxy.conf_bak_`date +"%Y%m%d%H%M%S"`
+# 調整server優化值
+sed -i 's/# CacheSize=8M/CacheSize=4G/g' /etc/zabbix/zabbix_proxy.conf
+sed -i 's/Timeout=4/Timeout=30/g' /etc/zabbix/zabbix_proxy.conf
+#
+sed -i 's/# StartPollers=5/StartPollers=500/g' /etc/zabbix/zabbix_server.conf
+sed -i 's/# StartTrappers=5/StartTrappers=200/g' /etc/zabbix/zabbix_server.conf
+sed -i 's/# StartDBSyncers=4/StartDBSyncers=100/g' /etc/zabbix/zabbix_server.conf
+sed -i 's/# StartPingers=1/StartPingers=500/g' /etc/zabbix/zabbix_server.conf
+sed -i 's/# StartPollersUnreachable=1/StartPollersUnreachable=500/g' /etc/zabbix/zabbix_server.conf
+sed -i 's/# StartDiscoverers=1/StartDiscoverers=120/g' /etc/zabbix/zabbix_server.conf
+sed -i 's/# HistoryCacheSize=16M/HistoryCacheSize=1G/g' /etc/zabbix/zabbix_server.conf
+#
+# 第二部分
+#
+sed -i 's/# VMwareCacheSize=8M/VMwareCacheSize=1G/g' /etc/zabbix/zabbix_server.conf
+sed -i 's/# HistoryCacheSize=16M/HistoryCacheSize=2G/g' /etc/zabbix/zabbix_server.conf
+sed -i 's/# HistoryIndexCacheSize=4M/HistoryIndexCacheSize=2G/g' /etc/zabbix/zabbix_server.conf
+sed -i 's/# TrendCacheSize=4M/TrendCacheSize=1G/g' /etc/zabbix/zabbix_server.conf
+sed -i 's/# ValueCacheSize=8M/ValueCacheSize=2G/g' /etc/zabbix/zabbix_server.conf
+
+ grep CacheSize= /etc/zabbix/zabbix_server.conf
+ 
+# VMwareCacheSize=8M
+# CacheSize=8M
+# HistoryCacheSize=16M
+# HistoryIndexCacheSize=4M
+# TrendCacheSize=4M
+# ValueCacheSize=8M
+
+sed -i 's/# VMwareCacheSize=8M/VMwareCacheSize=1G/g' /etc/zabbix/zabbix_server.conf
+sed -i 's/# CacheSize=8M/CacheSize=4G/g' /etc/zabbix/zabbix_server.conf
+sed -i 's/# HistoryCacheSize=16M/HistoryCacheSize=2G/g' /etc/zabbix/zabbix_server.conf
+sed -i 's/# HistoryIndexCacheSize=4M/HistoryIndexCacheSize=2G/g' /etc/zabbix/zabbix_server.conf
+sed -i 's/# TrendCacheSize=4M/TrendCacheSize=1G/g' /etc/zabbix/zabbix_server.conf
+sed -i 's/# ValueCacheSize=8M/ValueCacheSize=2G/g' /etc/zabbix/zabbix_server.conf
 
 ```
 
@@ -219,7 +256,11 @@ mv graphfont.ttf graphfont.ttf.back
 #
 ln -s kaiu.ttf graphfont.ttf
 
+
 # systemctl restart zabbix-server zabbix-agent apache2
+
+
+
 
 ```
 
@@ -269,7 +310,6 @@ $ mariadb --version
 # apt update
 
 
-
 apt install zabbix-proxy-mysql zabbix-sql-scripts zabbix-agent
 
 mysql -uroot -p
@@ -278,10 +318,6 @@ create database zabbix_proxydb character set utf8 collate utf8_bin;
 create user zabbixproxyuser@localhost identified by 'f99XVu73Spfcgxw';
 grant all privileges on zabbix_proxydb.* to zabbixproxyuser@localhost;
 quit; 
-
-cat /usr/share/doc/zabbix-sql-scripts/mysql/proxy.sql | mysql -uzabbixproxyuser -p zabbix_proxydb
-
-匯入 zabbix proxy sql
 
 vi /etc/zabbix/zabbix_proxy.conf
 
@@ -301,75 +337,5 @@ sed -i "s/Server=127.0.0.1/Server=192.168.88.128/" /etc/zabbix/zabbix_agentd.con
 sed -i "s/Hostname=Zabbix server/Hostname=DC01-Debian11-Zabbix-Proxy01/" /etc/zabbix/zabbix_agentd.conf
 sed -i "s/^ServerActive=127.0.0.1/ServerActive=192.168.88.128/" /etc/zabbix/zabbix_agentd.conf
 sed -i "s/# HostMetadata=/HostMetadata=${data_d}/" /etc/zabbix/zabbix_agent2.conf
-
-
-
-```
-
-###
-
-```
-#file:ssh.sh
-#date:2021-10-12
-#version 1.0
-#authof:AZerork
-
-echo "1-临时关闭selinux"
-setenforce 0
-#sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
-
-echo "2-开始安装zabbix-agent2"
-read -p "选择zabbix-agent2安装方式:1-在线,2-离线(默认在线):" install_input
-ins=${install_input:-"1"}
-
-if [ $ins == "1" ]
-then
-    echo "2.1-开始在线安装"
-	echo "更换阿里云zabbix源"
-	rpm -Uvh https://mirrors.aliyun.com/zabbix/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
-	sed -i 's#http://repo.zabbix.com#https://mirrors.aliyun.com/zabbix#' /etc/yum.repos.d/zabbix.repo
-	yum clean all	
-	yum install zabbix-agent2  -y
-else
-    echo "2.2-开始离线安装"
-	echo "请确保zabbix-agent2-5.0.16-1.el7.x86_64.rpm在当前目录下"
-	sleep 1
-	rpm -ivh zabbix-agent2-5.0.16-1.el7.x86_64.rpm
-fi
-
-echo "3-备份agent2.conf配置文件"
-cp  /etc/zabbix/zabbix_agent2.conf /etc/zabbix/zabbix_agent2.conf.bak
-
-echo '4-修改配置文件'
-default_ip="10.203.1.246"
-
-read -p "客户端名称(仅英文):" agent_hostname
-
-read -p "zabbix server地址(默认为$default_ip):" ip_input
-ip=${ip_input:-$default_ip}
-
-default_data="Linux"
-read -p "默认元数据(默认Linux):" data_input
-data_d=${data_input:-$default_data}
-
-sed -i "s/Server=127.0.0.1/Server=${ip}/" /etc/zabbix/zabbix_agent2.conf
-sed -i "s/Hostname=Zabbix server/Hostname=${agent_hostname}/" /etc/zabbix/zabbix_agent2.conf
-sed -i "s/^ServerActive=127.0.0.1/ServerActive=${ip}/" /etc/zabbix/zabbix_agent2.conf
-sed -i "s/# HostMetadata=/HostMetadata=${data_d}/" /etc/zabbix/zabbix_agent2.conf
-
-echo "5-启动zabbix-agent2&&配置开机自动启动zabbix-agent2"
-systemctl start zabbix-agent2 && systemctl enable zabbix-agent2
-
-echo "6-防火墙开放10050端口,重启防火墙后生效"
-	
-
-echo "7-检测是否存在agent端口"
-port=$(netstat -nlp|grep 10050|wc -l)
-if [ ${port} -ne 0 ];then
-     echo "zabbix-agent安装成功"
-   else
-     echo "zabbix安装失败请检查"
-fi
-
 
 ```
