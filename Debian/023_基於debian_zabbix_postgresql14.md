@@ -339,3 +339,42 @@ sed -i "s/^ServerActive=127.0.0.1/ServerActive=192.168.88.128/" /etc/zabbix/zabb
 sed -i "s/# HostMetadata=/HostMetadata=${data_d}/" /etc/zabbix/zabbix_agent2.conf
 
 ```
+### 定期重啟服務
+
+```
+00 4 * * * /usr/bin/systemctl restart zabbix-server.service
+
+
+vi check-httpd.sh
+
+#!/bin/bash
+ 
+ 
+# Check httpd header
+checkhttpd=`/usr/bin/curl -s --head --request GET http://localhost | /usr/bin/grep HTTP | /usr/bin/wc -l`
+ 
+if [ $checkhttpd != 1 ]
+then
+        # restart httpd
+        /usr/bin/systemctl restart httpd
+        sleep 10
+ 
+        # check again
+        recheckhttpd=`/usr/bin/curl -s --head --request GET http://localhost | /usr/bin/grep HTTP | /usr/bin/wc -l`
+        if [ $recheckhttpd == 1 ]
+        then
+                echo "Apache start successfully!" | /bin/mail -s "Apache restarted" you@email.com
+                exit
+        else
+                echo "Apache restart fail!" | /bin/mail -s "Apache restart fail" you@email.com
+                exit
+        fi
+        exit
+fi
+
+# chmod +x check-httpd.sh
+
+# crontab -e
+
+# */5 * * * * root /path/to/check-named.sh >/dev/null 2>&1
+```
