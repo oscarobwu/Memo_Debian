@@ -378,3 +378,31 @@ fi
 
 # */5 * * * * root /path/to/check-named.sh >/dev/null 2>&1
 ```
+
+###
+
+```
+#check_service_mem.sh
+#!/bin/bash
+ 
+threshold=75 #percent
+total=$(free | grep "Mem:" | awk '{print $2}')
+remaining=$(free | grep "Mem:" | awk '{print $4}')
+current=$(echo "scale=0;100-$remaining * 100 / $total" | bc -l)
+ 
+if [ $current -gt $threshold ]
+then
+      /usr/bin/systemctl restart zabbix-server.service
+      /usr/bin/systemctl restart postgresql.service
+      /usr/bin/systemctl restart apache2.service
+ 
+      echo "Restarted apache and zabbix on `date +'%Y-%m-%d %H:%M:%S'`. RAM utilization at {current}%" 
+      >> /var/log/apache_zabbix_restarter.log
+fi
+
+####
+chmod a+x check_service_mem.sh
+#
+0 0 * * * /bin/bash /home/oscar/check_service_mem.sh
+#
+```
