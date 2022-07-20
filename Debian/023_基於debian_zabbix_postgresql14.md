@@ -403,6 +403,6 @@ fi
 ####
 chmod a+x check_service_mem.sh
 #
-0 0 * * * /bin/bash /home/oscar/check_service_mem.sh
+*/1 * * * * /bin/bash /home/oscar/check_service_mem.sh
 #
 ```
