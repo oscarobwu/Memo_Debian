@@ -64,6 +64,8 @@ apt install python3.9-dev -y
 # apt install python3.10-dev
 # 稽核指令
 apt install auditd -y
+# 硬碟擴展
+apt install parted -y
 
 ###apt install vim-gtk -y
 apt install whois rrdtool librrds-perl python3-memcache python3-mysqldb -y
