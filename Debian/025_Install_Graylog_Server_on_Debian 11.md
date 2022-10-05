@@ -250,7 +250,7 @@ password_secret = 98KM6k7W6CtfQPc0EFKS3EMsb3bgYK1qPwDZcNezkqx4usSOMZE1rbKtuHuRwl
 rest_listen_uri = http://127.0.0.1:9000/graylog/api/
 web_listen_uri = http://127.0.0.1:9000/graylog/
 
-
+sudo systemctl restart graylog-server
 
 ```
 
@@ -392,6 +392,9 @@ server {
 ```
 
 ```
+
+sudo systemctl restart nginx 
+
 touch /var/www/html/phpinfo.php && echo '<?php phpinfo(); ?>' >> /var/www/html/phpinfo.php
 
 #
