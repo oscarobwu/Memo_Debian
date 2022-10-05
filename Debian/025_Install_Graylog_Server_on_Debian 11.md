@@ -205,6 +205,56 @@ sudo systemctl restart graylog-server
 
 
 ```
+### Step 5: Setup Graylog Server using Nginx
+
+```
+
+#$ echo deb http://nginx.org/packages/debian/ stretch nginx | sudo tee /etc/apt/sources.list.d/nginx.list
+$ echo "deb http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
+$ wget http://nginx.org/keys/nginx_signing.key && sudo apt-key add nginx_signing.key 
+$ sudo apt update && apt install nginx -y
+
+需要注意的是，這一步安裝的 Nginx 和系統自帶的 nginx 的配置目錄略有區別，可以用一下幾個簡單的命令修正：
+讓設定習慣不用改變
+sudo mkdir /etc/nginx/{sites-available,sites-enabled}
+sudo mv /etc/nginx/conf.d/* /etc/nginx/sites-available
+sudo rmdir -f /etc/nginx/conf.d/
+sudo perl -pi -e 's/conf.d/sites-enabled/g' /etc/nginx/nginx.conf
+
+要設定一下設定檔連結
+ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/
+
+mkdir -p /var/www/html
+
+chown -R nginx:nginx /var/www/html
+
+檢查 nginx 設定檔是否正確
+
+nginx -t
+
+重新啟動 nginx 並 設定開機啟動
+
+重新啟動
+sudo systemctl restart nginx 
+
+sudo systemctl enable --now nginx 
+
+
+# 編輯 server.conf
+sudo vi /etc/graylog/server/server.conf
+
+# 新稱密碼
+password_secret = 98KM6k7W6CtfQPc0EFKS3EMsb3bgYK1qPwDZcNezkqx4usSOMZE1rbKtuHuRwllkzm37cAp5U07jD9Hv6hCybkk3vJdVlC38
+
+# In the server.conf file, also add the below lines.
+rest_listen_uri = http://127.0.0.1:9000/graylog/api/
+web_listen_uri = http://127.0.0.1:9000/graylog/
+
+
+
+```
+
+### 設定 ssl 
 
 ```
 ######
