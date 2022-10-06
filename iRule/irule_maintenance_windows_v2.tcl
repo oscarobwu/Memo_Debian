@@ -2,7 +2,7 @@
 when HTTP_REQUEST {
     set default_pool [LB::server pool] 
     array set check_timerange { 
-	    Mon {"05:30" "13:00"} 
+		Mon {"05:30" "13:00"} 
 		Tue {"05:30" "12:38"} 
 		Wed {"05:30" "13:00"} 
 		Thu {"05:30" "12:52"} 
