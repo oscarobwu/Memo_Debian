@@ -56,11 +56,21 @@ sudo su - postgres -c "createuser <name>"
 sudo su - postgres -c "createdb <namedb>"
 
 
+sudo su - postgres -c "createuser grafanauser"
+
+sudo su - postgres -c "createdb grafanadb"
+
+
 # 先連接 再給user權限
 
 sudo -u postgres psql
 
+ALTER DATABASE grafanadb OWNER TO grafanauser;
+
+
 GRANT ALL PRIVILEGES ON DATABASE <usernamedb> TO <name>;
+
+GRANT ALL PRIVILEGES ON DATABASE grafanadb TO grafanauser;
 
 
 
