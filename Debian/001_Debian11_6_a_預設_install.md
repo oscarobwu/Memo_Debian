@@ -7,12 +7,13 @@
 #更新安裝python 3.9.7
 # 20211125 更新使用python 3.10.0
 # 20220428 更新使用python 3.10.4
+# 20230111 更新使用python 3.11.1
 #
 # Run all commands logged in as root or "sudo su - "
 # Start from a base Debian 10 install and update it to current.
 # Add backports repo so that we can install odbc-mariadb.
 fname = $BASH_SOURCE
-# 安裝3.10.4
+# 安裝3.11.1
 
 apt update && apt upgrade -y
 
@@ -21,11 +22,11 @@ apt update && apt upgrade -y
 
 apt install wget build-essential lib32readline6-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev -y
 
-wget https://www.python.org/ftp/python/3.10.4/Python-3.10.4.tgz
+wget https://www.python.org/ftp/python/3.11.1/Python-3.11.1.tgz
 
-tar xzf Python-3.10.4.tgz
+tar xzf Python-3.11.1.tgz
 
-cd Python-3.10.4
+cd Python-3.11.1
 ./configure --enable-optimizations 
 
 make altinstall
