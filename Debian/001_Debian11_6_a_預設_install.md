@@ -35,7 +35,8 @@ make altinstall
 #make install
 
 #update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
-update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
+# update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
+update-alternatives --install /usr/bin/python python /usr/bin/python3.9 1
 #
 update-alternatives --install /usr/bin/python python /usr/local/bin/python3.11 2
 
