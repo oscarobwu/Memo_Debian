@@ -560,8 +560,8 @@ chmod +x /etc/rc.local
 systemctl start rc-local
 #
 cd ~
-rm Python-3.10.4.tgz
-rm -R Python-3.10.4
+rm Python-3.11.1.tgz
+rm -R Python-3.11.1
 #
 rm -R vim-temp
 #
