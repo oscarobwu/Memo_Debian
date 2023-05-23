@@ -250,8 +250,10 @@ sed -i 's/# set bell-style none/set bell-style none/g' /etc/inputrc
 # 關閉 ipv6
 #sed -i 's/#net.ipv6.conf.all.disable_ipv6 = 1/net.ipv6.conf.all.disable_ipv6 = 1/g' /etc/sysctl.conf
 #
-/usr/local/bin/python3.10 -m pip install --upgrade pip
+# /usr/local/bin/python3.10 -m pip install --upgrade pip
+/usr/local/bin/python3.11 -m pip install --upgrade pip
 #
+
 pip install Stats
 
 pip install f5-sdk
