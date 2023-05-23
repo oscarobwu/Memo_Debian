@@ -1,9 +1,9 @@
-###001_Debian11_3_b_預設_install.md
-# 001_Debian11_3_b_預設_install.md
+###001_Debian11_7_a_預設_install.md
+# 001_Debian11_7_a_預設_install.md
 #### 新增 rc.local
 ----
 ```
-# ###001_Debian11_c預設_install.md
+# ###001_Debian11_7_a預設_install.md
 #更新安裝python 3.9.7
 # 20211125 更新使用python 3.10.0
 # 20220428 更新使用python 3.10.4
