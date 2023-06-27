@@ -1391,3 +1391,16 @@ $IPTABLES -t nat -A PREROUTING -j REDIRECT -p tcp --destination-port 3000 --to-p
 /etc/rc.d/init.d/iptables restart
 ```
 
+# 清除 防活牆規則
+
+```
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -F
+iptables -X
+iptables -t nat -F
+iptables -t nat -X
+iptables -t mangle -F
+iptables -t mangle -X
+
