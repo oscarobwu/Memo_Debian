@@ -1391,7 +1391,7 @@ $IPTABLES -t nat -A PREROUTING -j REDIRECT -p tcp --destination-port 3000 --to-p
 /etc/rc.d/init.d/iptables restart
 ```
 
-# 清除 防活牆規則
+# 清除 防火牆規則
 
 ```
 iptables -P INPUT ACCEPT
