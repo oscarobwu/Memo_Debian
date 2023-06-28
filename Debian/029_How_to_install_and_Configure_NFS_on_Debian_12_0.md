@@ -63,7 +63,10 @@ vi  /etc/exports
 # /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
 #
 # 設定存取網段
-/var/nfsshare    192.168.88.0/24(rw,sync,no_subtree_check)
+#/var/nfsshare    192.168.88.0/24(rw,sync,no_subtree_check)
+#/var/nfsshare    192.168.0.11(rw,sync,no_root_squash,no_all_squash)
+/var/nfsshare    192.168.88.166(rw,sync,no_root_squash,no_all_squash)
+
 
 
 ```
