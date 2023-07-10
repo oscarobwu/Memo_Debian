@@ -501,6 +501,7 @@ mkdir /var/lib/prometheus
 
 sudo mv prometheus.yml /etc/prometheus/prometheus.yml
 sudo mv consoles/ console_libraries/ /etc/prometheus/
+sudo cp prometheus /usr/local/bin
 
 步骤 4. 配置 Prometheus。
 
