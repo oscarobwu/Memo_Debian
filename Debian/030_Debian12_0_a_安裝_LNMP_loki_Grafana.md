@@ -629,7 +629,7 @@ $ node_exporter --version
 
 設定啟動服務
 
-sudo tee /etc/systemd/system/node_exporter.service EOF
+sudo tee /etc/systemd/system/node_exporter.service<<EOF
 [Unit]
 Description=Node Exporter
 Wants=network-online.target
