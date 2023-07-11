@@ -838,6 +838,16 @@ positions:
 clients:  
   - url: http://localhost:3100/loki/api/v1/push 
 scrape_configs: 
+  - job_name: system
+    static_configs:
+    - targets:
+        - localhost #Promtail target is localhost
+      labels:
+        instance: nginx.voidquark.com #Label identifier for instance (hostname -f)
+        env: voidquark #Environment label
+        job: secure #Job label
+        __path__: /var/log/secure
+
   - job_name: syslog 
     syslog: 
       listen_address: 0.0.0.0:1514 
