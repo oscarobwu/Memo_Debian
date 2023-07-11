@@ -843,8 +843,8 @@ scrape_configs:
     - targets:
         - localhost #Promtail target is localhost
       labels:
-        instance: nginx.voidquark.com #Label identifier for instance (hostname -f)
-        env: voidquark #Environment label
+        instance: Debian12-0-loki02 #Label identifier for instance (hostname -f)
+        env: Debian-Linux #Environment label
         job: secure #Job label
         __path__: /var/log/secure
 
