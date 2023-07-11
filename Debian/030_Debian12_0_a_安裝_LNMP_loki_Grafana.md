@@ -473,6 +473,26 @@ server {
 }
 
 
+systemctl restart nginx
+
+touch /var/www/html/phpinfo.php && echo '<?php phpinfo(); ?>' >> /var/www/html/phpinfo.php
+
+
+vi /var/www/html/index.html
+
+<!DOCTYPE html>
+<html>
+<head>
+   <!-- HTML meta refresh URL redirection -->
+   <meta http-equiv="refresh"
+   content="0; url=/grafama">
+</head>
+<body>
+   <p>The page has moved to:
+   <a href="/jenkins">this page</a></p>
+</body>
+</html>
+
 ```
 
 
