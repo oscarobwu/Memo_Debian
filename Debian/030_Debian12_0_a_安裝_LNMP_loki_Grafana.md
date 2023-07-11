@@ -86,6 +86,9 @@ create user grafana_user with encrypted password 'f99XVu73Spfcgxw';
 grant all privileges on database grafana_db to grafana_user;
 \q
 
+GRANT ALL ON DATABASE grafana_db TO grafana_user;
+ALTER DATABASE grafana_db OWNER TO grafana_user;
+
 $ psql -h 127.0.0.1 -U grafana_user -d grafana_db
 
 
