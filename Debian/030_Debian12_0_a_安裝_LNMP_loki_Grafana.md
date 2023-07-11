@@ -6,7 +6,7 @@
 
 
 ```
-
+apt install sudo -y
 #$ echo deb http://nginx.org/packages/debian/ stretch nginx | sudo tee /etc/apt/sources.list.d/nginx.list
 $ echo "deb http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx" | sudo tee /etc/apt/sources.list.d/nginx.list
 $ wget http://nginx.org/keys/nginx_signing.key && sudo apt-key add nginx_signing.key 
