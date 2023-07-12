@@ -711,9 +711,20 @@ $  systemctl status node_exporter.service
 #將服務監控加入普羅米修斯
 sudo vi /etc/prometheus/prometheus.yml
 
-- job_name: 'node_exporter'
-  static_configs:
-  - targets: ['localhost:9100']
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: "prometheus"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: 'node_exporter'
+    static_configs:
+      - targets: ['localhost:9100']
+
 
 sudo systemctl restart prometheus
 
