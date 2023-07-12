@@ -541,8 +541,7 @@ vi /var/www/html/index.html
 
 步骤 1.
 
-sudo apt update
-sudo apt upgrade
+apt update && sudo apt upgrade -y
 
 步骤 2. 創建 Prometheus 用户。
 
