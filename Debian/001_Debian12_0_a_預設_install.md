@@ -54,7 +54,8 @@ apt upgrade -y
 
 apt install make gcc curl wget vim git-core git tree libsnmp-dev tcpdump htop iftop dnsutils libcurl4-gnutls-dev libxml2-dev libevent-dev linux-headers-`uname -r` build-essential -y
 apt install exuberant-ctags universal-ctags -y
-apt install net-tools sudo vim-gtk ack-grep -y
+apt install net-tools vim-gtk ack-grep -y
+apt install sudo -y
 apt install expect -y
 apt install nodejs -y
 apt install yarn rdate -y
