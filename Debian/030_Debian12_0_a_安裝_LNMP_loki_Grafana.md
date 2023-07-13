@@ -728,6 +728,8 @@ scrape_configs:
 
 sudo systemctl restart prometheus
 
+Grafana Dashborad ID: 1860
+
 ```
 
 # Step 06 – Grafana 10 使用 PostgreSQL 15 
