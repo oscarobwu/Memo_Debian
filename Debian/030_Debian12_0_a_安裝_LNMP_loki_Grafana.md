@@ -1201,3 +1201,28 @@ input(type="imtcp" port="514" ruleset="remote")
 export PROMPT_COMMAND='RETRN_VAL=$?; if [ -f /tmp/lastoutput.tmp ]; then LAST_OUTPUT=$(cat /tmp/lastoutput.tmp); rm /tmp/lastoutput.tmp; fi; logger -S 10000 -p local6.debug "{\"user\": \"$(whoami)\", \"path\": \"$(pwd)\", \"pid\": \"$$\", \"b64_command\": \"$(history 1 | sed "s/^[ ]*[0–9]\+[ ]*//" | base64 -w0 )\", \"status\": \"$RETRN_VAL\", \"b64_output\": \"$LAST_OUTPUT\"}"; unset LAST_OUTPUT; '
 logoutput() { output=$(while read input; do echo "$input"; done < "${1:-/dev/stdin}"); echo -e "$output"; echo -e "$output" | head -c 10000 | base64 -w0 > /tmp/lastoutput.tmp; return $?; }
 ```
+
+### Loki 语法
+
+```
+
+|=：日志行包含字符串
+!=：日志行不包含字符串
+|~：日志行匹配正则表达式
+!~：日志行与正则表达式不匹配
+
+1 # 精确匹配：|="2020-11-16 "
+2 {app_kubernetes_io_instance="admin-service-test2-container-provider"}|="2020-11-16 "
+
+1 # 模糊匹配：|~"2020-11-16 "
+2 {app_kubernetes_io_instance="admin-service-test2-container-provider"}|~"2020-11-16 "
+
+1 # 排除过滤：!=/!~ "数据中心"
+2 {app_kubernetes_io_instance="admin-service-master-container-provider"}!="資料中心"
+3 {app_kubernetes_io_instance="admin-service-master-container-provider"}!~"資料中心"
+
+1 # 正则匹配： |~ "()"
+2 {app_kubernetes_io_instance="admin-service-master-container-provider"}!~"(admin|web)"
+3 {app_kubernetes_io_instance="admin-service-master-container-provider"}|~"ERROR|error"
+
+```
