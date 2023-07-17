@@ -1287,4 +1287,12 @@ systemctl start alertmanager
 
 systemctl status alertmanager
 
+ss -aulntp | grep 9093
+
+
+修改好設定檔後，可以使用amtool工具檢查設定
+
+/usr/local/bin/amtool check-config /etc/alertmanager/alertmanager.yml
+
+
 ```
