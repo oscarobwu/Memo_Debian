@@ -1138,7 +1138,7 @@ systemctl start promtail.service
 
 ```
 
-apt install -y update && apt install -y rsyslog
+apt update && apt install -y rsyslog
 
 sudo systemctl status rsyslog
 
