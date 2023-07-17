@@ -522,7 +522,7 @@ vi /var/www/html/index.html
 <head>
    <!-- HTML meta refresh URL redirection -->
    <meta http-equiv="refresh"
-   content="0; url=/grafama">
+   content="0; url=/grafana">
 </head>
 <body>
    <p>The page has moved to:
