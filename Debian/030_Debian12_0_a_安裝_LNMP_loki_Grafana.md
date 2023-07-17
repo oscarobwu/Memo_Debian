@@ -1226,3 +1226,61 @@ logoutput() { output=$(while read input; do echo "$input"; done < "${1:-/dev/std
 3 {app_kubernetes_io_instance="admin-service-master-container-provider"}|~"ERROR|error"
 
 ```
+
+## Step 10
+
+```
+## 確認最新檔案
+
+## https://prometheus.io/download/
+
+wget https://github.com/prometheus/alertmanager/releases/download/v0.25.0/alertmanager-0.25.0.linux-amd64.tar.gz
+
+tar -xzvf alertmanager-0.25.0.linux-amd64.tar.gz
+
+cd alertmanager-0.25.0.linux-amd64
+
+mv amtool alertmanager /usr/local/bin
+
+alertmanager -h
+
+mkdir -p /etc/alertmanager
+
+mkdir -p /dbdata/alertmanager
+
+useradd -rs /bin/false alertmanager
+
+mv alertmanager.yml /etc/alertmanager
+
+chown -R alertmanager:alertmanager /dbdata/alertmanager /etc/alertmanager/*
+
+sudo tee /etc/systemd/system/alertmanager.service<<EOF
+[Unit]
+Description=Alert Manager
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=alertmanager
+Group=alertmanager
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStart=/usr/local/bin/alertmanager \
+--config.file=/etc/alertmanager/alertmanager.yml \
+--storage.path=/dbdata/alertmanager \
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
+
+systemctl enable alertmanager
+
+systemctl start alertmanager
+
+systemctl status alertmanager
+
+```
