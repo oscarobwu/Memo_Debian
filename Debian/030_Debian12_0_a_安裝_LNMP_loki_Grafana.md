@@ -737,9 +737,13 @@ Grafana Dashborad ID: 1860
 
 ```
 
+#sudo apt-get install -y adduser libfontconfig1
+#wget https://dl.grafana.com/oss/release/grafana_10.0.1_amd64.deb
+#sudo dpkg -i grafana_10.0.1_amd64.deb
+
 sudo apt-get install -y adduser libfontconfig1
-wget https://dl.grafana.com/oss/release/grafana_10.0.1_amd64.deb
-sudo dpkg -i grafana_10.0.1_amd64.deb
+wget https://dl.grafana.com/oss/release/grafana_10.0.2_amd64.deb
+sudo dpkg -i grafana_10.0.2_amd64.deb
 
 systemctl daemon-reload
 systemctl start grafana-server
