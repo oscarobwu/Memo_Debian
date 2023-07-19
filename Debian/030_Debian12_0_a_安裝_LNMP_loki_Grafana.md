@@ -1007,7 +1007,7 @@ sudo mkdir /etc/promtail
 
 sudo vi /etc/loki/loki-local-config.yaml
 
-################################################
+################### 更新 設定 請參考 下面設定 #############################
 auth_enabled: false 
 server: 
   http_listen_port: 3100 
