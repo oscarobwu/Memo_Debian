@@ -621,7 +621,22 @@ Restart=always
 
 [Install]
 WantedBy=multi-user.target
- 
+################
+# 啟動參數 參考用
+./prometheus 
+--config.file=./prometheus.yml 
+--web.listen-address=0.0.0.0:19091 
+--web.enable-lifecycle 
+--storage.tsdb.path=/data/PromDB 
+--storage.tsdb.retention.time=30d 
+--query.timeout=2m 
+--log.level=info 
+--log.format=ogfmt 
+--storage.tsdb.retention.size=2TB 
+--storage.tsdb.no-lockfile 
+--storage.tsdb.wal-compression 
+--rules.alert.resend-delay=5s
+
 #################################################
 
 sudo tee /etc/systemd/system/prometheus.service<<EOF
