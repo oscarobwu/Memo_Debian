@@ -1147,8 +1147,34 @@ sudo systemctl enable promtail.service
 systemctl start loki.service
 systemctl start promtail.service
 
+mkdir -p /etc/loki/rules/demo
 
+vi /etc/loki/rule/demo/election-log-alert.yml
 
+groups:
+  - name: Too-many-election-logs-alert
+    rules:
+    - alert: Too-many-election-logs-alert
+      expr: count_over_time({host=~"db01|db02|db03|db04"}|~"election"[10m]) > 10
+      for: 2m
+      labels:
+        severity: warnning
+        instance: " 主機{{ $labels.host }}的日志:  {{ $labels.filename }}"
+      annotations:
+        summary: Too many election logs in dolphindb logs
+        description:  10分钟之内DolphinDB日志内election日志出现10次以上
+
+  - name: F5-loging-logs-alert
+    rules:
+    - alert: F5-user-loging-logs-alert
+      expr: count_over_time({host=~"lab1.local.com|db02|db03|db04"}|~"oscarwu"[1m]) > 1
+      for: 10s
+      labels:
+        severity: warnning
+        instance: " 主機{{ $labels.host }}的日志:  {{ $labels.filename }}"
+      annotations:
+        summary: Too many election logs in dolphindb logs
+        description:  1分鐘之内 設備登入紀錄内oscarwu日志出现1次以上
 ```
 
 ### 更新設定
@@ -1218,7 +1244,7 @@ ruler:
   storage: 
     type: local 
     local: 
-      directory: /tmp/loki/rules 
+      directory: /etc/loki/rules # 記得要多建立一層目錄安放檔案 /etc/loki/rules/demo/rules.yml
   rule_path: /tmp/loki/rules-temp 
   alertmanager_url: http://localhost:9093 
   ring: 
