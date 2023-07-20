@@ -1417,3 +1417,17 @@ ss -aulntp | grep 9093
 
 
 ```
+
+```
+將 f5 log 導入 loki
+
+過濾登入帳號 成功
+{host=~"lab1.local.com|db02|db03|db04"} |~ "01070417:6: AUDIT - user" != "failed to login"
+    | pattern "<_> user=<user> partition=[All] level=Administrator tty=(unknown) host=<ip> <_>"
+    | line_format "USER = {{.user}}\tIP = {{.ip}}"
+
+過濾登入帳號 失敗
+{host=~"lab1.local.com|db02|db03|db04"} |~ "01070417:6: AUDIT - user" |= "failed to login"
+    | pattern "<_> User=<user> tty=(unknown) host=<ip> <_>"
+    | line_format "Login Fail USER = {{.user}}\tIP = {{.ip}}"
+```
