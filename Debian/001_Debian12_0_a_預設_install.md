@@ -811,6 +811,7 @@ systemctl status rc-local
 ### 新增 fail2ban 條件規則
 
 ```
+vi /etc/fail2ban/jail.local
 內容如下 :
 ##########
 [sshd]
