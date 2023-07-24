@@ -1004,6 +1004,9 @@ sudo mv loki-linux-amd64 /usr/local/bin/loki
 
 建立工作目錄
 sudo mkdir /etc/loki
+sudo mkdir /etc/loki/rules
+sudo mkdir /etc/loki/rules/demo   # 告警目錄
+sudo mkdir /etc/loki/rules/demo2   # 告警目錄 多個用戶
 sudo mkdir -p /data/loki
 
 
