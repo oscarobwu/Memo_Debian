@@ -1005,8 +1005,9 @@ sudo mv loki-linux-amd64 /usr/local/bin/loki
 建立工作目錄
 sudo mkdir /etc/loki
 sudo mkdir /etc/loki/rules
+sudo mkdir /etc/loki/rules/fake # 一定要先建立
 sudo mkdir /etc/loki/rules/demo   # 告警目錄
-sudo mkdir /etc/loki/rules/demo2   # 告警目錄 多個用戶
+sudo mkdir /etc/loki/rules/demo2   # 告警目錄 多個用戶 
 sudo mkdir -p /data/loki
 
 
@@ -1152,7 +1153,7 @@ systemctl start promtail.service
 
 mkdir -p /etc/loki/rules/demo
 
-vi /etc/loki/rule/demo/election-log-alert.yml
+vi /etc/loki/rule/fake/election-log-alert.yml
 
 groups:
   - name: Too-many-election-logs-alert
