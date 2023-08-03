@@ -1,10 +1,12 @@
 ###001_Debian12_1_a_預設_install.md
 # 001_Debian12_1_a_預設_install.md
 #### 新增 rc.local
+#### 新增 ssh 登入說明
 ----
 ```
+#!/usr/bin/env bash
 # ###001_Debian12_1_a_預設_install.md
-#更新安裝python 3.9.7
+# 更新安裝python 3.9.7
 # 20211125 更新使用python 3.10.0
 # 20220428 更新使用python 3.10.4
 # 20230111 更新使用python 3.11.1
@@ -728,8 +730,39 @@ net.ipv4.tcp_slow_start_after_idle = 0
 net.ipv4.tcp_tw_reuse = 1
 net.ipv4.ip_local_port_range = 10240 65535
 EOF
+###############################
+# 設定 登入顯示
+cat << 'EOF' > /etc/update-motd.d/05-info
+#! /usr/bin/env bash
+
+# Basic info
+HOSTNAME=`uname -n`
+ROOT=`df -Ph | grep xvda1 | awk '{print $4}' | tr -d '\n'`
+
+# System load
+MEMORY1=`free -t -m | grep Total | awk '{print $3" MB";}'`
+MEMORY2=`free -t -m | grep "Mem" | awk '{print $2" MB";}'`
+LOAD1=`cat /proc/loadavg | awk {'print $1'}`
+LOAD5=`cat /proc/loadavg | awk {'print $2'}`
+LOAD15=`cat /proc/loadavg | awk {'print $3'}`
+
+echo "
+===============================================
+ - Hostname............: $HOSTNAME
+ - Disk Space..........: $ROOT remaining
+===============================================
+ - CPU usage...........: $LOAD1, $LOAD5, $LOAD15 (1, 5, 15 min)
+ - Memory used.........: $MEMORY1 / $MEMORY2
+ - Swap in use.........: `free -m | tail -n 1 | awk '{print $3}'` MB
+===============================================
+"
+
+EOF
+
+sudo chmod +x /etc/update-motd.d/05-info
+######### 設定顯示 結束
 #
-###
+###########
 currentscript="$0"
 
 # Function that is called when the script exits:
