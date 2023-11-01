@@ -33,3 +33,41 @@ Get-NetFirewallRule -DisplayGroup "網路原則伺服器" | where DisplayName -l
 
 Reference: https://social.technet.microsoft.com/Forums/en-US/0bf054af-eebe-4a2b-a07b-ccab174b234f/server-2019-radius-blocked-by-defender-firewall
 ```
+
+```
+
+1 建立新的 vSwitch1
+~# esxcli network vswitch standard add --vswitch-name=vSwitch1
+
+2 在 vSwitch1 建立vlan Name 
+~# esxcli network vswitch standard portgroup add --portgroup-name="333" --vswitch-name=vSwitch1
+
+
+esxcli network vswitch standard portgroup add --portgroup-name="333" --vswitch-name=vSwitch1
+esxcli network vswitch standard portgroup add --portgroup-name="DB_riverbed_TEST" --vswitch-name=vSwitch1
+esxcli network vswitch standard portgroup add --portgroup-name="F5-INTERNET" --vswitch-name=vSwitch1
+esxcli network vswitch standard portgroup add --portgroup-name="F5_Internal" --vswitch-name=vSwitch1
+esxcli network vswitch standard portgroup add --portgroup-name="F5_MGMT" --vswitch-name=vSwitch1
+
+esxcli network vswitch standard portgroup add --portgroup-name="Internal" --vswitch-name=vSwitch1
+esxcli network vswitch standard portgroup add --portgroup-name="LAB_AD" --vswitch-name=vSwitch1
+esxcli network vswitch standard portgroup add --portgroup-name="MGMT" --vswitch-name=vSwitch1
+esxcli network vswitch standard portgroup add --portgroup-name="TP-Link" --vswitch-name=vSwitch1
+esxcli network vswitch standard portgroup add --portgroup-name="Trunk-All" --vswitch-name=vSwitch1
+
+esxcli network vswitch standard portgroup add --portgroup-name="Vlan50" --vswitch-name=vSwitch1
+esxcli network vswitch standard portgroup add --portgroup-name="Vlan_590" --vswitch-name=vSwitch1
+esxcli network vswitch standard portgroup add --portgroup-name="WAN-ADSL-LAB_Vlan30" --vswitch-name=vSwitch1
+esxcli network vswitch standard portgroup add --portgroup-name="Wan-Staic" --vswitch-name=vSwitch1
+esxcli network vswitch standard portgroup add --portgroup-name="Web_Server_10_1_20" --vswitch-name=vSwitch1
+esxcli network vswitch standard portgroup add --portgroup-name="access_Vlan504" --vswitch-name=vSwitch1
+esxcli network vswitch standard portgroup add --portgroup-name="Web_Server" --vswitch-name=vSwitch1
+
+
+列出 有哪一些 vswitch
+esxcli network vswitch standard list
+
+
+列出所有的 network Name
+esxcli network vswitch standard portgroup list
+```
